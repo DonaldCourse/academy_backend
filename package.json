@@ -1,0 +1,43 @@
+{
+  "name": "academy_backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "NODE_ENV=production node server",
+    "dev": "nodemon server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DonaldCourse/academy_backend.git"
+  },
+  "author": "DonaldTrieu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DonaldCourse/academy_backend/issues"
+  },
+  "homepage": "https://github.com/DonaldCourse/academy_backend#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "colors": "^1.4.0",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.2.1",
+    "express-mongo-sanitize": "^2.0.2",
+    "express-rate-limit": "^5.2.3",
+    "express-validator": "^6.11.1",
+    "helmet": "^4.4.1",
+    "hpp": "^0.2.3",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.11.13",
+    "node-geocoder": "^3.27.0",
+    "nodemailer": "^6.4.17",
+    "slugify": "^1.4.6",
+    "xss-clean": "^0.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
