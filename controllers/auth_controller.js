@@ -1,6 +1,7 @@
 const crypto = require('crypto');
 const path = require('path');
 const asyncHandler = require('../middlewares/async');
+const Tutors = require('../models/Tutors');
 const User = require('../models/User');
 const ErrorResponse = require('../utils/errorResponse');
 const sendEmail = require('../utils/sendEmail');
@@ -13,7 +14,33 @@ exports.register = asyncHandler(async (req, res, next) => {
 
     const currentUser = await User.findOne({ email }).select('+password');
 
-    if(currentUser){
+    if (currentUser) {
+        return next(new ErrorResponse('The email registered', 400));
+    }
+
+    const user = await User.create({
+        name,
+        email,
+        password,
+    });
+
+    const token = user.getSignedJwtToken();
+
+    res.status(200).json({
+        success: true,
+        token
+    });
+});
+
+// @desc POST register a user
+// @route POST /api/v1/auth/tutor/register
+// access PUBLIC
+exports.registerTutor = asyncHandler(async (req, res, next) => {
+    const { name, email, password, role } = req.body;
+
+    const currentUser = await User.findOne({ email }).select('+password');
+
+    if (currentUser) {
         return next(new ErrorResponse('The email registered', 400));
     }
 
@@ -24,11 +51,13 @@ exports.register = asyncHandler(async (req, res, next) => {
         role
     });
 
-    const token = user.getSignedJwtToken();
+    const tutor = await Tutors.create({
+        user_id: user._id
+    });
 
     res.status(200).json({
         success: true,
-        token
+        tutor
     });
 });
 

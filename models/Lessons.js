@@ -6,80 +6,20 @@ const LessonsSchema = new mongoose.Schema({
         trim: true,
     },
 
-    overview: {
+    thumbnail: {
         type: String,
-        required: [true, 'Please add a overview'],
+        required: [true, 'Please add a thumbnail for video'],
     },
 
-    description: {
+    video_url: {
         type: String,
-        required: [true, 'Please add a description'],
+        required: [true, 'Please add a url for video'],
     },
 
-    minimum_skill: {
-        type: String,
-        required: [true, 'Please add a minimum skill'],
-        enum: ["beginner", "intermediate", "advanced"]
-    },
-
-    weeks: {
-        type: Number,
-        required: [true, 'Please add number of weeks'],
-    },
-
-    tuition: {
-        type: Number,
-        default: 0
-    },
-
-    discount: {
-        type: Number,
-        default: 0
-    },
-
-    avatar: {
-        type: String,
-        default: 'no-image.jpg'
-    },
-
-    rating: {
-        type: Number,
-        min: [1, 'Rating must be least 1'],
-        max: [5, 'Rating must not be more than 5'],
-        default: 1
-    },
-
-    count_rating: {
-        type: Number,
-        default: 0
-    },
-
-    count_register: {
-        type: Number,
-        default: 0
-    },
-
-    categories_id: {
+    course_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Categories',
-        required: true,
-    },
-
-    owner_id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true,
-    },
-
-    lecturer_id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true,
-    },
-
-    is_published: {
-        type: Boolean,
-        default: false
+        default: null,
+        ref: 'Courses'
     },
 
     created_at: {

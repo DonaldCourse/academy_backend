@@ -3,6 +3,10 @@ const { protect, authorize } = require('../middlewares/auth');
 const { body } = require('express-validator');
 const Categories = require('../models/Categories');
 const { createCourseOfTeacher, getCourseOfTeacher, getCourseDetailOfTeacher, publishCourseOfTeacher, updateCourseOfTeacher } = require('../controllers/courses_controller');
+const { createLessonOfCourse, getListLessonOfCourse, editListLessonOfCourse, deleteLessonOfCourse } = require('../controllers/lesson_controller');
+const { getTutorProfile, updateTutorProfile } = require('../controllers/tutor_controller');
+
+const Courses = require('../models/Courses');
 const router = express.Router();
 router.route('/courses')
     .get(protect, authorize('teacher'), getCourseOfTeacher)
@@ -13,6 +17,7 @@ router.route('/courses')
         body('weeks').isInt().notEmpty(),
         body('tuition').isInt().notEmpty(),
         body('discount').isInt().notEmpty(),
+        body('avatar').isURL().notEmpty(),
         body('categories_id').isString().notEmpty().custom(value => {
             return Categories.findOne({ _id: value }).then(category => {
                 if (!category) {
@@ -42,4 +47,28 @@ router.route('/courses/:courseId')
         }).optional(),
         protect, authorize('teacher'), updateCourseOfTeacher
     )
+
+router.route('/courses/:id/lessons')
+    .get(protect, authorize('teacher'), getListLessonOfCourse)
+    .post(body('title').isString().notEmpty(),
+        body('thumbnail').isURL().notEmpty(),
+        body('video_url').isURL().notEmpty(),
+        protect, authorize('teacher'), createLessonOfCourse)
+
+router.route('/courses/:id/lessons/:lessonId')
+    .put(body('title').isString().optional(),
+        body('thumbnail').isURL().optional(),
+        body('video_url').isURL().optional(),
+        body('course_id').isString().notEmpty().optional(),
+        protect, authorize('teacher'), editListLessonOfCourse)
+    .delete(protect, authorize('teacher'), deleteLessonOfCourse)
+
+router.route('/:id/profile')
+    .get(protect, authorize('teacher'), getTutorProfile)
+    .put(body('introduction').isString().optional(),
+        body('intro_video').isURL().optional(),
+        body('education').isString().optional(),
+        body('professional_background').isString().optional(),
+        protect, authorize('teacher'), updateTutorProfile)
+
 module.exports = router;

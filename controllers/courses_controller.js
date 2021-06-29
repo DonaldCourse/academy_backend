@@ -2,6 +2,7 @@ const { validationResult } = require('express-validator');
 const asyncHandler = require('../middlewares/async');
 const Catagories = require('../models/Categories');
 const Courses = require('../models/Courses');
+const Tutors = require('../models/Tutors');
 const User = require('../models/User');
 
 const { findAllCourses } = require('../services/courses_service');
@@ -16,15 +17,17 @@ const ErrorResponse = require('../utils/errorResponse')
 // access Private
 exports.createCourseOfTeacher = asyncHandler(async (req, res, next) => {
     const result = validationResult(req);
-    console.log(req.body);
     if (!result.isEmpty()) {
         res.status(422).json({
             success: false,
             errors: result.array()
         });
     }
-    req.body.lecturer_id = req.user.id;
-    req.body.owner_id = req.user.id;
+    const tutor = await Tutors.findOne({ user_id: req.user.id })
+    if (!tutor) {
+        return new ErrorResponse("Tutor not found", 400);
+    }
+    req.body.lecturer_id = tutor._id;
     const course = await Courses.create(req.body);
     res.status(201).json({
         success: true,
@@ -36,14 +39,18 @@ exports.createCourseOfTeacher = asyncHandler(async (req, res, next) => {
 // @route GET /api/v1/teacher/courses?categoriesId=
 // access Private
 exports.getCourseOfTeacher = asyncHandler(async (req, res, next) => {
+    const tutor = await Tutors.findOne({ user_id: req.user.id })
+    if (!tutor) {
+        return new ErrorResponse("Tutor not found", 400);
+    }
     if (req.query.categoriesId) {
-        const courses = await findAllCourses(req, null, { categories_id: req.query.categoriesId, lecturer_id: req.user.id });
+        const courses = await findAllCourses(req, null, { categories_id: req.query.categoriesId, lecturer_id: tutor._id });
         res.status(200).json({
             success: true,
             data: courses
         });
     } else {
-        const data = await findAllCourses(req, null, { lecturer_id: req.user.id })
+        const data = await findAllCourses(req, null, { lecturer_id: tutor._id })
         res.status(200).json(data);
     }
 });
@@ -52,7 +59,11 @@ exports.getCourseOfTeacher = asyncHandler(async (req, res, next) => {
 // @route GET /api/v1/teacher/courses/:courseId
 // access Private
 exports.getCourseDetailOfTeacher = asyncHandler(async (req, res, next) => {
-    const courses = await Courses.findOne({ lecturer_id: req.user.id, _id: req.params.courseId });
+    const tutor = await Tutors.findOne({ user_id: req.user.id })
+    if (!tutor) {
+        return new ErrorResponse("Tutor not found", 400);
+    }
+    const courses = await Courses.findOne({ lecturer_id: tutor._id, _id: req.params.courseId });
     res.status(200).json({
         success: true,
         data: courses
@@ -73,7 +84,11 @@ exports.publishCourseOfTeacher = asyncHandler(async (req, res, next) => {
     }
 
     const { is_published } = req.body
-    let course = await Courses.findOne({ lecturer_id: req.user.id, _id: req.params.courseId });
+    const tutor = await Tutors.findOne({ user_id: req.user.id })
+    if (!tutor) {
+        return new ErrorResponse("Tutor not found", 400);
+    }
+    let course = await Courses.findOne({ lecturer_id: tutor._id, _id: req.params.courseId });
     const isPublished = course.is_published
     if (!course) {
         return next(new ErrorResponse(`Course isn't exists`, 404));
@@ -104,8 +119,11 @@ exports.updateCourseOfTeacher = asyncHandler(async (req, res, next) => {
             errors: result.array()
         });
     }
-
-    let course = await Courses.findOne({ lecturer_id: req.user.id, _id: req.params.courseId });
+    const tutor = await Tutors.findOne({ user_id: req.user.id })
+    if (!tutor) {
+        return new ErrorResponse("Tutor not found", 400);
+    }
+    let course = await Courses.findOne({ lecturer_id: tutor._id, _id: req.params.courseId });
     if (!course) {
         return next(new ErrorResponse(`Course isn't exists`, 404));
     }

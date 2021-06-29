@@ -13,30 +13,30 @@ router.route('/categories')
 router.route('/categories/:categoryId')
     .get(protect, authorize('administrator'), getCategoryDetail)
     .put(body('name').isString().optional(),
-        body('parent_id').isString().optional(), 
+        body('parent_id').isString().optional(),
         protect, authorize('administrator'), updateCategoriesOfAdmin)
 
 router.route('/courses')
-            .get(protect, authorize('administrator'), getCoursesOfAdministrator)
+    .get(protect, authorize('administrator'), getCoursesOfAdministrator)
 
 router.route('/courses/:courseId')
-            .post(body('is_published').isBoolean().notEmpty(),
-                protect, authorize('administrator'), publishedCoursesOfAdministrator)
-            .put(
-                body('title').isString().optional(),
-                body('overview').isString().optional().isLength({ min: 10 }).withMessage('must be at least 10 chars long'),
-                body('description').isString().optional().isLength({ min: 10 }).withMessage('must be at least 10 chars long'),
-                body('minimum_skill').isString().optional(),
-                body('weeks').isInt().optional(),
-                body('tuition').isInt().optional(),
-                body('discount').isInt().optional(),
-                body('categories_id').isString().custom(value => {
-                    return Catagories.findOne({ _id: value }).then(category => {
-                        if (!category) {
-                            return Promise.reject(`Category is not found with ${value}`)
-                        }
-                    })
-                }).optional(),
-                protect, authorize('administrator'), updateCourseOfAdmin
-            )
+    .post(body('is_published').isBoolean().notEmpty(),
+        protect, authorize('administrator'), publishedCoursesOfAdministrator)
+    .put(
+        body('title').isString().optional(),
+        body('overview').isString().optional().isLength({ min: 10 }).withMessage('must be at least 10 chars long'),
+        body('description').isString().optional().isLength({ min: 10 }).withMessage('must be at least 10 chars long'),
+        body('minimum_skill').isString().optional(),
+        body('weeks').isInt().optional(),
+        body('tuition').isInt().optional(),
+        body('discount').isInt().optional(),
+        body('categories_id').isString().custom(value => {
+            return Catagories.findOne({ _id: value }).then(category => {
+                if (!category) {
+                    return Promise.reject(`Category is not found with ${value}`)
+                }
+            })
+        }).optional(),
+        protect, authorize('administrator'), updateCourseOfAdmin
+    )
 module.exports = router;
