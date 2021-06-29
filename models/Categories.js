@@ -27,7 +27,7 @@ const CategoriesSchema = new mongoose.Schema({
 CategoriesSchema.pre('save', async function (next) {
     this.slug = slugify(this.name);
     next();
- });
+});
 
 function slugify(string) {
     const a = 'àáâäæãåāăąçćčđďèéêëēėęěğǵḧîïíīįìłḿñńǹňôöòóœøōõőṕŕřßśšşșťțûüùúūǘůűųẃẍÿýžźż·/_,:;'

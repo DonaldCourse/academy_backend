@@ -22,7 +22,7 @@ connectMongoDb();
 const authRoutes = require('./routes/auth_router');
 const categoriesRoutes = require('./routes/categories_router');
 const coursesRoutes = require('./routes/course_router');
-
+const administratorGroupRouter = require('./routes/administrator_router');
 const teacherGroupRouter = require('./routes/teacher_group_router');
 
 const app = express();
@@ -69,6 +69,7 @@ app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/categories', categoriesRoutes);
 app.use('/api/v1/courses', coursesRoutes);
 app.use('/api/v1/teacher', teacherGroupRouter);
+app.use('/api/v1/admin', administratorGroupRouter);
 
 app.use(errorHandle);
 

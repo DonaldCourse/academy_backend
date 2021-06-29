@@ -1,13 +1,12 @@
 const express = require('express');
-const { createCategories, findAllCategoriesOfRoot, findDescendants } = require('../controllers/categories_controller');
+const { createCategories, findAllCategories, findDescendants } = require('../controllers/categories_controller');
 const { protect, authorize } = require('../middlewares/auth');
 const courseRoutes = require('./course_router');
 
 const router = express.Router();
 
 router.route('/')
-    .get(findAllCategoriesOfRoot)
-    .post(protect, authorize('administrator'), createCategories);
+    .get(findAllCategories)
 
 router.route('/descendants')
     .get(findDescendants)

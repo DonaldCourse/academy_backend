@@ -1,7 +1,7 @@
 const express = require('express');
 const { protect, authorize } = require('../middlewares/auth');
 const { body } = require('express-validator');
-const Catagories = require('../models/Catagories');
+const Categories = require('../models/Categories');
 const { createCourseOfTeacher, getCourseOfTeacher, getCourseDetailOfTeacher, publishCourseOfTeacher, updateCourseOfTeacher } = require('../controllers/courses_controller');
 const router = express.Router();
 router.route('/courses')
@@ -14,7 +14,7 @@ router.route('/courses')
         body('tuition').isInt().notEmpty(),
         body('discount').isInt().notEmpty(),
         body('categories_id').isString().notEmpty().custom(value => {
-            return Catagories.findOne({ _id: value }).then(category => {
+            return Categories.findOne({ _id: value }).then(category => {
                 if (!category) {
                     return Promise.reject(`Category is not found with ${value}`)
                 }
@@ -34,7 +34,7 @@ router.route('/courses/:courseId')
         body('tuition').isInt().optional(),
         body('discount').isInt().optional(),
         body('categories_id').isString().custom(value => {
-            return Catagories.findOne({ _id: value }).then(category => {
+            return Categories.findOne({ _id: value }).then(category => {
                 if (!category) {
                     return Promise.reject(`Category is not found with ${value}`)
                 }

@@ -1,5 +1,5 @@
-const Categories = require('../models/Catagories');
-
+const Categories = require('../models/Categories');
+const _ = require('lodash')
 exports.buildAncestors = async (id, parent_id) => {
     let ancest = [];
     try {
@@ -13,4 +13,14 @@ exports.buildAncestors = async (id, parent_id) => {
     } catch (err) {
         console.log(err.message)
     }
+}
+
+exports.buildHierarchyAncestors = async (category_id, parent_id) => {
+    if (category_id && parent_id)
+        this.buildAncestors(category_id, parent_id)
+    const result = await Categories.find({ 'parent': category_id }).exec();
+    if (result)
+        result.forEach((doc) => {
+            this.buildHierarchyAncestors(doc._id, category_id)
+        })
 }

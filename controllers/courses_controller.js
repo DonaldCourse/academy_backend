@@ -1,6 +1,6 @@
 const { validationResult } = require('express-validator');
 const asyncHandler = require('../middlewares/async');
-const Catagories = require('../models/Catagories');
+const Catagories = require('../models/Categories');
 const Courses = require('../models/Courses');
 const User = require('../models/User');
 
@@ -33,11 +33,11 @@ exports.createCourseOfTeacher = asyncHandler(async (req, res, next) => {
 });
 
 // @desc GET courses
-// @route GET /api/v1/teacher/courses
+// @route GET /api/v1/teacher/courses?categoriesId=
 // access Private
 exports.getCourseOfTeacher = asyncHandler(async (req, res, next) => {
-    if (req.params.categoriesId) {
-        const courses = await Courses.find({ categories_id: req.params.categoriesId, lecturer_id: req.user.id });
+    if (req.query.categoriesId) {
+        const courses = await findAllCourses(req, null, { categories_id: req.query.categoriesId, lecturer_id: req.user.id });
         res.status(200).json({
             success: true,
             data: courses
@@ -120,6 +120,82 @@ exports.updateCourseOfTeacher = asyncHandler(async (req, res, next) => {
     });
 });
 
+// @desc GET courses
+// @route GET /api/v1/courses
+// @route GET /api/v1/admin/courses?categoriesId=
+// access PUBLIC
+exports.getCoursesOfAdministrator = asyncHandler(async (req, res, next) => {
+    if (req.query.categoriesId) {
+        const data = await findAllCourses(req, null, { categories_id: req.query.categoriesId });
+        res.status(200).json({
+            success: true,
+            data: data
+        });
+    } else {
+        const data = await findAllCourses(req, null, null);
+        res.status(200).json(data);
+    }
+});
+
+// @desc POST courses
+// @route POST /api/v1/courses
+// @route POST /api/v1/admin/courses/:courseId
+// access PUBLIC
+exports.publishedCoursesOfAdministrator = asyncHandler(async (req, res, next) => {
+    const result = validationResult(req);
+    if (!result.isEmpty()) {
+        res.status(422).json({
+            success: false,
+            errors: result.array()
+        });
+    }
+
+    const { is_published } = req.body
+    let course = await Courses.findOne({ _id: req.params.courseId });
+    const isPublished = course.is_published
+    if (!course) {
+        return next(new ErrorResponse(`Course isn't exists`, 404));
+    } else {
+        if (isPublished == is_published) {
+            return next(new ErrorResponse(`Please check status of course`, 404));
+        }
+    }
+    course = await Courses.findByIdAndUpdate(course._id, { is_published: is_published }, {
+        new: true,
+        runValidators: true
+    })
+    res.status(200).json({
+        success: true,
+        data: course
+    });
+});
+
+// @desc PUT courses of teacher
+// @route PUT /api/v1/admin/courses/:courseId
+// access Private
+exports.updateCourseOfAdmin = asyncHandler(async (req, res, next) => {
+    const result = validationResult(req);
+    if (!result.isEmpty()) {
+        res.status(422).json({
+            success: false,
+            errors: result.array()
+        });
+    }
+
+    let course = await Courses.findOne({ _id: req.params.courseId });
+    if (!course) {
+        return next(new ErrorResponse(`Course isn't exists`, 404));
+    }
+
+    course = await Courses.findByIdAndUpdate(course._id, req.body, {
+        new: true,
+        runValidators: true
+    })
+    res.status(200).json({
+        success: true,
+        data: course
+    });
+});
 
 // @desc GET courses
 // @route GET /api/v1/courses
