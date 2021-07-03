@@ -67,7 +67,7 @@ const CoursesSchema = new mongoose.Schema({
 
     lecturer_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Tutor',
+        ref: 'Tutors',
         required: true,
     },
 

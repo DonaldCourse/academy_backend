@@ -1,5 +1,5 @@
 const express = require('express');
-const { register, login, forgot, resetpassword, updateUserDetails, updatePassword, logout, registerTutor } = require('../controllers/auth_controller');
+const { register, login, forgot, resetpassword, updateUserDetails, updatePassword, logout, registerTutor, validateUser, registerAdmin } = require('../controllers/auth_controller');
 const { protect, authorize } = require('../middlewares/auth');
 
 const router = express.Router();
@@ -9,6 +9,9 @@ router.route('/register')
 
 router.route('/tutor/register')
     .post(protect, authorize('administrator'), registerTutor);
+
+router.route('/admin/register')
+    .post(registerAdmin);
 
 router.route('/login')
     .post(login);
@@ -27,5 +30,8 @@ router.route('/updatedetails')
 
 router.route('/updatepassword')
     .post(protect, updatePassword);
+
+router.route('/validate-user')
+    .get(protect, validateUser);
 
 module.exports = router;

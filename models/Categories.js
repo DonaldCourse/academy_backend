@@ -21,7 +21,17 @@ const CategoriesSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         default: null,
         ref: 'Categories'
-    }
+    },
+
+    created_at: {
+        type: Date,
+        default: Date.now
+    },
+
+    updated_at: {
+        type: Date,
+        default: Date.now
+    },
 });
 
 CategoriesSchema.pre('save', async function (next) {

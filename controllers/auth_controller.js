@@ -1,6 +1,7 @@
 const crypto = require('crypto');
 const path = require('path');
 const asyncHandler = require('../middlewares/async');
+const Students = require('../models/Students');
 const Tutors = require('../models/Tutors');
 const User = require('../models/User');
 const ErrorResponse = require('../utils/errorResponse');
@@ -24,11 +25,22 @@ exports.register = asyncHandler(async (req, res, next) => {
         password,
     });
 
+    await Students.create({
+        user_id: user._id,
+        name,
+        email
+    });
+
     const token = user.getSignedJwtToken();
 
     res.status(200).json({
         success: true,
-        token
+        token,
+        user: {
+            role: user.role,
+            email: user.email,
+            name: user.name
+        }
     });
 });
 
@@ -36,7 +48,7 @@ exports.register = asyncHandler(async (req, res, next) => {
 // @route POST /api/v1/auth/tutor/register
 // access PUBLIC
 exports.registerTutor = asyncHandler(async (req, res, next) => {
-    const { name, email, password, role } = req.body;
+    const { name, email, password } = req.body;
 
     const currentUser = await User.findOne({ email }).select('+password');
 
@@ -48,16 +60,43 @@ exports.registerTutor = asyncHandler(async (req, res, next) => {
         name,
         email,
         password,
-        role
+        role : "teacher"
     });
 
     const tutor = await Tutors.create({
-        user_id: user._id
+        user_id: user._id,
+        name,
+        email
     });
 
     res.status(200).json({
         success: true,
         tutor
+    });
+});
+
+// @desc POST register a user
+// @route POST /api/v1/auth/admin/register
+// access PUBLIC
+exports.registerAdmin = asyncHandler(async (req, res, next) => {
+    const { name, email, password } = req.body;
+
+    const currentUser = await User.findOne({ email }).select('+password');
+
+    if (currentUser) {
+        return next(new ErrorResponse('The email registered', 400));
+    }
+
+    const user = await User.create({
+        name,
+        email,
+        password,
+        role : "administrator"
+    });
+
+    res.status(200).json({
+        success: true,
+        user
     });
 });
 
@@ -100,7 +139,12 @@ const sendTokenResponse = (user, status, res) => {
 
     res.status(status).cookie('token', token, options).json({
         success: true,
-        token
+        token,
+        user: {
+            role: user.role,
+            email: user.email,
+            name: user.name
+        }
     });
 }
 
@@ -227,4 +271,21 @@ exports.updatePassword = asyncHandler(async (req, res, next) => {
     await user.save();
 
     sendTokenResponse(user, 200, res);
+});
+
+// @desc POST validate-user
+// @route POST /api/v1/auth/validate-user
+// access PRIVATE
+exports.validateUser = asyncHandler(async (req, res, next) => {
+
+    const user = await User.findOne({ _id: req.user.id });
+
+    res.status(200).json({
+        success: true,
+        user: {
+            role: user.role,
+            email: user.email,
+            name: user.name
+        }
+    })
 });

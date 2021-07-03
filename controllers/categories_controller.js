@@ -40,6 +40,25 @@ exports.findAllCategories = asyncHandler(async (req, res, next) => {
     }
 });
 
+exports.findAllCategoriesOfAdmin = asyncHandler(async (req, res, next) => {
+    try {
+        const result = await Categories.find()
+            .select({
+                "_id": true,
+                "name": true,
+                "parent": true,
+                "ancestors._id": true,
+                "ancestors.slug": true,
+                "ancestors.name": true
+            }).exec();
+
+        res.status(200).send({ "status": "success", "data": result });
+    } catch (err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+});
+
 exports.getCategoryDetail = asyncHandler(async (req, res, next) => {
     try {
         const category = await Categories.findOne({ _id: req.params.categoryId });

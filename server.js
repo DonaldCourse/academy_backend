@@ -45,18 +45,19 @@ app.use(limiter);
 
 app.use(hpp()); // <- THIS IS THE NEW LINE
 
-var whitelist = ['http://localhost']
+var whitelist = ['http://localhost', 'http://localhost:5000', 'http://localhost:3002', 'http://localhost:3000', 'http://localhost:3001']
 var corsOptions = {
     origin: function (origin, callback) {
         if (whitelist.indexOf(origin) !== -1) {
             callback(null, true)
         } else {
+            console.log(origin);
             callback(new Error('Not allowed by CORS'))
         }
     }
 }
 
-// app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 
 app.use(CookieParser());
 
@@ -65,11 +66,11 @@ app.use(logger);
 app.use(fileUpload());
 
 //routes
-app.use('/api/v1/auth', authRoutes);
-app.use('/api/v1/categories', categoriesRoutes);
-app.use('/api/v1/courses', coursesRoutes);
-app.use('/api/v1/teacher', teacherGroupRouter);
-app.use('/api/v1/admin', administratorGroupRouter);
+app.use('/api/auth', authRoutes);
+app.use('/api/categories', categoriesRoutes);
+app.use('/api/courses', coursesRoutes);
+app.use('/api/teacher', teacherGroupRouter);
+app.use('/api/admin', administratorGroupRouter);
 
 app.use(errorHandle);
 

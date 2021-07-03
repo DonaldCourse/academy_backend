@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const TutorSchema = new mongoose.Schema({
+const StudentSchema = new mongoose.Schema({
     user_id: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
@@ -16,26 +16,6 @@ const TutorSchema = new mongoose.Schema({
             'Please use a valid email'
         ]
     },
-    introduction: {
-        type: String,
-        trim: true,
-        default: ''
-    },
-    intro_video: {
-        type: String,
-        trim: true,
-        default: ''
-    },
-    education: {
-        type: String,
-        trim: true,
-        default: ''
-    },
-    professional_background: {
-        type: String,
-        trim: true,
-        default: ''
-    },
     created_at: {
         type: Date,
         default: Date.now
@@ -45,4 +25,4 @@ const TutorSchema = new mongoose.Schema({
         default: Date.now
     }
 });
-module.exports = mongoose.model('Tutors', TutorSchema);
+module.exports = mongoose.model('Students', StudentSchema);

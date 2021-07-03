@@ -2,6 +2,17 @@ const { validationResult } = require('express-validator');
 const asyncHandler = require('../middlewares/async');
 const Tutors = require('../models/Tutors');
 const ErrorResponse = require('../utils/errorResponse');
+const TutorService = require('../services/tutors_service');
+/**
+ * Group Admin
+ */
+// @desc GET get all lesson of course
+// @route GET /api/admin/tutors
+// access Private
+exports.getListTutorOfAdmin = asyncHandler(async (req, res, next) => {
+    const tutors = await TutorService.findAllTutor(req, null)
+    res.status(200).json(tutors);
+});
 
 /**
  * Group Teacher
@@ -15,7 +26,7 @@ exports.getTutorProfile = asyncHandler(async (req, res, next) => {
         return next(new ErrorResponse("Tutor not found,  Course not found", 400));
     }
 
-    res.status(201).json({
+    res.status(200).json({
         success: true,
         data: tutor
     });
@@ -47,7 +58,7 @@ exports.updateTutorProfile = asyncHandler(async (req, res, next) => {
         runValidators: true
     });
 
-    res.status(201).json({
+    res.status(200).json({
         success: true,
         data: tutor
     });

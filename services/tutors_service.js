@@ -1,6 +1,6 @@
-const Courses = require('../models/Courses');
+const Tutors = require('../models/Tutors');
 
-exports.findAllCourses = async (req, condition) => {
+exports.findAllTutor = async (req, condition) => {
     let query;
     console.log(condition);
     const reqQuery = { ...req.query };
@@ -9,9 +9,9 @@ exports.findAllCourses = async (req, condition) => {
     let queryStr = JSON.stringify(reqQuery);
     queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, match => `$${match}`);
     if (condition) {
-        query = Courses.find(JSON.parse(queryStr)).where(condition);
+        query = Tutors.find(JSON.parse(queryStr)).where(condition);
     } else {
-        query = Courses.find(JSON.parse(queryStr));
+        query = Tutors.find(JSON.parse(queryStr));
     }
     if (req.query.select) {
         const fields = req.query.select.split(',');
@@ -34,13 +34,13 @@ exports.findAllCourses = async (req, condition) => {
     const endIndex = page * limit;
     let total = 0;
     if (condition) {
-        total = await Courses.where(condition).countDocuments();
+        total = await Tutors.where(condition).countDocuments();
     } else {
-        total = await Courses.countDocuments();
+        total = await Tutors.countDocuments();
     }
     query = query.skip(startIndex).limit(limit);
 
-    query = query.populate('lecturer_id').populate('categories_id');
+    query = query.populate({path : 'user_id', select: 'email name'});
 
     const results = await query;
     const totalItems = total;

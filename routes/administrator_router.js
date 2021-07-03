@@ -1,14 +1,16 @@
 const express = require('express');
 const { protect, authorize } = require('../middlewares/auth');
 const { body } = require('express-validator');
-const { createCategories, findAllCategories, updateCategoriesOfAdmin, getCategoryDetail } = require('../controllers/categories_controller');
+const { createCategories, findAllCategories, updateCategoriesOfAdmin, getCategoryDetail, findAllCategoriesOfAdmin } = require('../controllers/categories_controller');
 const { getCoursesOfAdministrator, publishedCoursesOfAdministrator, updateCourseOfAdmin } = require('../controllers/courses_controller');
+const { getListTutorOfAdmin } = require('../controllers/tutor_controller');
+
 const router = express.Router();
 const Catagories = require('../models/Categories');
 
 router.route('/categories')
     .post(protect, authorize('administrator'), createCategories)
-    .get(protect, authorize('administrator'), findAllCategories)
+    .get(protect, authorize('administrator'), findAllCategoriesOfAdmin)
 
 router.route('/categories/:categoryId')
     .get(protect, authorize('administrator'), getCategoryDetail)
@@ -39,4 +41,8 @@ router.route('/courses/:courseId')
         }).optional(),
         protect, authorize('administrator'), updateCourseOfAdmin
     )
+
+router.route('/tutors')
+    .get(protect, authorize('administrator'), getListTutorOfAdmin)
+
 module.exports = router;
