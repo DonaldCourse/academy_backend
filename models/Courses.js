@@ -24,7 +24,7 @@ const CoursesSchema = new mongoose.Schema({
 
     weeks: {
         type: Number,
-        required: [true, 'Please add number of weeks'],
+        default: 0
     },
 
     tuition: {

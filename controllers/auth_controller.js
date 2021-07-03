@@ -285,7 +285,8 @@ exports.validateUser = asyncHandler(async (req, res, next) => {
         user: {
             role: user.role,
             email: user.email,
-            name: user.name
+            name: user.name,
+            avatar: user.avatar
         }
     })
 });

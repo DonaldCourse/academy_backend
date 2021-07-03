@@ -5,18 +5,22 @@ const Categories = require('../models/Categories');
 const { createCourseOfTeacher, getCourseOfTeacher, getCourseDetailOfTeacher, publishCourseOfTeacher, updateCourseOfTeacher } = require('../controllers/courses_controller');
 const { createLessonOfCourse, getListLessonOfCourse, editListLessonOfCourse, deleteLessonOfCourse } = require('../controllers/lesson_controller');
 const { getTutorProfile, updateTutorProfile } = require('../controllers/tutor_controller');
+const { findAllCategoriesOfTeacher } = require('../controllers/categories_controller');
 
 const Courses = require('../models/Courses');
 const router = express.Router();
+
+router.route('/categories')
+    .get(protect, authorize('teacher'), findAllCategoriesOfTeacher)
 router.route('/courses')
     .get(protect, authorize('teacher'), getCourseOfTeacher)
     .post(body('title').isString().notEmpty(),
         body('overview').isString().notEmpty().isLength({ min: 10 }),
         body('description').isString().notEmpty().isLength({ min: 10 }),
         body('minimum_skill').isString().notEmpty(),
-        body('weeks').isInt().notEmpty(),
-        body('tuition').isInt().notEmpty(),
-        body('discount').isInt().notEmpty(),
+        body('weeks').isInt().optional(),
+        body('tuition').isInt().optional(),
+        body('discount').isInt().optional(),
         body('avatar').isURL().notEmpty(),
         body('categories_id').isString().notEmpty().custom(value => {
             return Categories.findOne({ _id: value }).then(category => {
@@ -63,7 +67,7 @@ router.route('/courses/:id/lessons/:lessonId')
         protect, authorize('teacher'), editListLessonOfCourse)
     .delete(protect, authorize('teacher'), deleteLessonOfCourse)
 
-router.route('/:id/profile')
+router.route('/profile')
     .get(protect, authorize('teacher'), getTutorProfile)
     .put(body('introduction').isString().optional(),
         body('intro_video').isURL().optional(),

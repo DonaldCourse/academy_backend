@@ -145,10 +145,7 @@ exports.updateCourseOfTeacher = asyncHandler(async (req, res, next) => {
 exports.getCoursesOfAdministrator = asyncHandler(async (req, res, next) => {
     if (req.query.categoriesId) {
         const data = await findAllCourses(req, { categories_id: req.query.categoriesId });
-        res.status(200).json({
-            success: true,
-            data: data
-        });
+        res.status(200).json(data);
     } else {
         const data = await findAllCourses(req, null);
         res.status(200).json(data);

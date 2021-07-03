@@ -49,11 +49,11 @@ CourseReviewSchema.statics.getAvergeRating = async function (courseID, action) {
     ]);
 
     try {
-        await this.model('Courses').findByIdAndUpdate(course_id, {
+        await this.model('Courses').findByIdAndUpdate(courseID, {
             rating: Math.ceil(obj[0].rating / 10) * 10
         });
 
-        await this.model('Courses').findByIdAndUpdate(course_id, {
+        await this.model('Courses').findByIdAndUpdate(courseID, {
             count_rating: count_rating + (action ? 1 : (-1))
         });
     } catch (error) {

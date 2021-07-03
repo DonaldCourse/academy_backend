@@ -64,7 +64,7 @@ exports.getListLessonOfCourse = asyncHandler(async (req, res, next) => {
         return next(new ErrorResponse("Tutor is not teaching course or Course not found", 400));
     }
 
-    res.status(201).json({
+    res.status(200).json({
         success: true,
         data: lessons
     });
@@ -105,7 +105,7 @@ exports.editListLessonOfCourse = asyncHandler(async (req, res, next) => {
         runValidators: true
     });
 
-    res.status(201).json({
+    res.status(200).json({
         success: true,
         data: lesson
     });

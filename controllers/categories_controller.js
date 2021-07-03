@@ -4,7 +4,7 @@ const Categories = require('../models/Categories');
 const ErrorResponse = require('../utils/errorResponse');
 const CategoriesSevice = require('../services/categories_service');
 const { getNestedChildren } = require('../utils/buildTree');
-
+const lodash = require('lodash')
 exports.createCategories = asyncHandler(async (req, res, next) => {
     let parent = req.body.parent ? req.body.parent : null;
     const categories = new Categories({ name: req.body.name, parent })
@@ -53,6 +53,26 @@ exports.findAllCategoriesOfAdmin = asyncHandler(async (req, res, next) => {
             }).exec();
 
         res.status(200).send({ "status": "success", "data": result });
+    } catch (err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+});
+
+exports.findAllCategoriesOfTeacher = asyncHandler(async (req, res, next) => {
+    try {
+        const result = await Categories.find()
+            .select({
+                "_id": true,
+                "name": true,
+                "parent": true,
+                "ancestors._id": true,
+                "ancestors.slug": true,
+                "ancestors.name": true
+            }).exec();
+        data = lodash.drop(result);
+
+        res.status(200).send({ "status": "success", "data": data });
     } catch (err) {
         console.log(err);
         res.status(500).send(err);
