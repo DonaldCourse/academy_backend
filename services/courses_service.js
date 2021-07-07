@@ -25,7 +25,7 @@ exports.findAllCourses = async (req, condition) => {
         console.log(sortBy);
 
     } else {
-        query = query.sort('createdAt');
+        query = query.sort('created_at');
     }
 
     const page = parseInt(req.query.page, 10) || 1;

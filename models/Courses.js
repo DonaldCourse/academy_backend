@@ -59,6 +59,11 @@ const CoursesSchema = new mongoose.Schema({
         default: 0
     },
 
+    count_watch: {
+        type: Number,
+        default: 0
+    },
+
     categories_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Categories',
