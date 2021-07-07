@@ -1,22 +1,38 @@
 const express = require('express');
-const { createCourse, getCourses } = require('../controllers/courses_controller');
-const advancedResult = require('../middlewares/advancedResult');
+const { body } = require('express-validator');
+const { getCourses, getLessonOfCourse, getCourseDetail, getCourseOfWeek, getAllNewCourse, getCourseWatchMost, getCategoriesRegisterMost, getAllCourseRelated } = require('../controllers/courses_controller');
+const { createCourseReview, getAllCourseReview } = require('../controllers/courses_review_controller');
+const { registerCourse, getAllCourseRegisted, getAllMyCourse } = require('../controllers/courses_register_controller');
 const { protect, authorize } = require('../middlewares/auth');
-const { body, check } = require('express-validator');
-const Course = require('../models/Courses')
 const router = express.Router({ mergeParams: true });
 
+// get three course of week
+router.route('/coursesOfWeek')
+    .get(getCourseOfWeek);
+// get ten course watch most
+router.route('/coursesWatchMost')
+    .get(getCourseWatchMost);
+// get ten new course
+router.route('/coursesNew')
+    .get(getAllNewCourse);
+// get category registed most
+router.route('/categoriesRegisterMost')
+    .get(getCategoriesRegisterMost);
+router.route('/register')
+    .post(registerCourse);
+router.route('/my-courses')
+    .get(getAllMyCourse);
 router.route('/')
-    .post(
-        body('title').isString().notEmpty(),
-        body('description').isString().notEmpty().isLength({ min: 10 }),
-        body('minimum_skill').isString().isEmpty(),
-        body('weeks').isInt().notEmpty(),
-        body('tuition').isInt().notEmpty(),
-        body('discount').isInt().notEmpty(),
-        protect,
-        authorize('teacher, administrator'),
-        createCourse)
-    .get(advancedResult(Course, { path: 'categories_id', select: 'name' }), getCourses);
-
+    .get(getCourses);
+router.route('/:id')
+    .get(getCourseDetail);
+router.route('/:id/lessons')
+    .get(getLessonOfCourse);
+router.route('/:id/related')
+    .get(getAllCourseRelated);
+router.route('/:id/feedback')
+    .get(getAllCourseReview)
+    .post(body('title').isString().notEmpty(),
+        body('rating').isFloat({ min: 1, max: 5 }),
+        protect, authorize('student'), createCourseReview);
 module.exports = router;

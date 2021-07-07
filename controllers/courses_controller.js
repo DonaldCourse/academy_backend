@@ -1,7 +1,9 @@
 const { validationResult } = require('express-validator');
 const asyncHandler = require('../middlewares/async');
+const Categories = require('../models/Categories');
 const Catagories = require('../models/Categories');
 const Courses = require('../models/Courses');
+const Lessons = require('../models/Lessons');
 const Tutors = require('../models/Tutors');
 const User = require('../models/User');
 
@@ -25,7 +27,7 @@ exports.createCourseOfTeacher = asyncHandler(async (req, res, next) => {
     }
     const tutor = await Tutors.findOne({ user_id: req.user.id })
     if (!tutor) {
-        return new ErrorResponse("Tutor not found", 400);
+        return next(new ErrorResponse("Tutor not found", 400));
     }
     req.body.lecturer_id = tutor._id;
     const course = await Courses.create(req.body);
@@ -41,7 +43,7 @@ exports.createCourseOfTeacher = asyncHandler(async (req, res, next) => {
 exports.getCourseOfTeacher = asyncHandler(async (req, res, next) => {
     const tutor = await Tutors.findOne({ user_id: req.user.id })
     if (!tutor) {
-        return new ErrorResponse("Tutor not found", 400);
+        return next(new ErrorResponse("Tutor not found", 400));
     }
     if (req.query.categoriesId) {
         const courses = await findAllCourses(req, null, { categories_id: req.query.categoriesId, lecturer_id: tutor._id });
@@ -61,7 +63,7 @@ exports.getCourseOfTeacher = asyncHandler(async (req, res, next) => {
 exports.getCourseDetailOfTeacher = asyncHandler(async (req, res, next) => {
     const tutor = await Tutors.findOne({ user_id: req.user.id })
     if (!tutor) {
-        return new ErrorResponse("Tutor not found", 400);
+        return next(new ErrorResponse("Tutor not found", 400));
     }
     const courses = await Courses.findOne({ lecturer_id: tutor._id, _id: req.params.courseId });
     res.status(200).json({
@@ -138,6 +140,9 @@ exports.updateCourseOfTeacher = asyncHandler(async (req, res, next) => {
     });
 });
 
+/**
+ * Group Admin
+ */
 // @desc GET courses
 // @route GET /api/v1/courses
 // @route GET /api/v1/admin/courses?categoriesId=
@@ -214,57 +219,137 @@ exports.updateCourseOfAdmin = asyncHandler(async (req, res, next) => {
 
 // @desc GET courses
 // @route GET /api/v1/courses
-// @route GET /api/v1/:categoriesId/courses
+// @route GET /api/courses/:id
 // access PUBLIC
 exports.getCourses = asyncHandler(async (req, res, next) => {
-    if (req.params.categoriesId) {
-        const courses = await Courses.find({ categories: req.params.categoriesId });
+    if (req.query.categoriesId) {
+        const courses = await findAllCourses(req, null, { categories_id: req.query.categoriesId, is_published: true });
         res.status(200).json({
             success: true,
             data: courses
         });
     } else {
-        res.status(200).json(res.advacedResults);
+        const data = await findAllCourses(req, null, { is_published: true })
+        res.status(200).json(data);
     }
 });
 
-// @desc POST add a courses to a bootcamp
-// @route GET /api/v1/categories/:categoriesId/courses
+// @desc GET courses
+// @route GET /api/v1/courses
+// @route GET /api/courses/:id/lessons
 // access PUBLIC
-exports.createCourse = asyncHandler(async (req, res, next) => {
-    const result = validationResult(req);
-    if (!result.isEmpty()) {
-        res.status(422).json({
-            success: false,
-            errors: result.array()
-        });
+exports.getLessonOfCourse = asyncHandler(async (req, res, next) => {
+    const course = await Courses.findOne({ _id: req.params.id, is_published: true }).populate({ path: 'lecturer_id', select: '_id name' });
+    if (!course) {
+        return next(new ErrorResponse(`Course isn't exists`, 404));
     }
-    if (req.user.role == 'administrator') {
-        if (!req.body.lecturer_id) {
-            return next(new ErrorResponse(`Please assignment to a teacher`, 404));
-        } else {
-            const user = await User.findById(req.body.lecturer_id);
-            if (!user || user.role != 'teacher') {
-                return next(new ErrorResponse(`Please assignment to a teacher`, 404));
-            }
-        }
-        req.body.lecturer_id = req.body.lecturer_id;
-    } else {
-        req.body.lecturer_id = req.user.id;
-    }
-    req.body.categories_id = req.params.categoriesId;
-    req.body.owner_id = req.user.id;
-    const catagory = await Catagories.findById(req.params.categoriesId);
-    if (!catagory) {
-        return next(new ErrorResponse(`Not found a category with id of ${req.params.categoriesId}`, 404));
-    }
-    const course = await Courses.create(req.body);
-    res.status(201).json({
+    const lessons = await Lessons.find({ course_id: course._id });
+    res.status(200).json({
         success: true,
-        data: course
+        data: {
+            course: course,
+            lessons: lessons
+        }
     });
 });
 
-exports.updateCourse = asyncHandler(async (req, res, next) => {
+// @desc GET courses
+// @route GET /api/v1/courses
+// @route GET /api/courses/:id
+// access PUBLIC
+exports.getCourseDetail = asyncHandler(async (req, res, next) => {
+    const course = await Courses.findOne({ _id: req.params.id, is_published: true }).populate({ path: 'lecturer_id', select: '_id name' });
+    if (!course) {
+        return next(new ErrorResponse(`Course isn't exists`, 404));
+    }
+    const lessons = await Lessons.find({ course_id: course._id }).limit(3);
+    res.status(200).json({
+        success: true,
+        data: {
+            course: course,
+            lessons: lessons
+        }
+    });
+});
 
-})
+exports.getCourseOfWeek = asyncHandler(async (req, res, next) => {
+    const courses = await Courses.find({ is_published: true })
+        .populate({ path: 'lecturer_id', select: '_id name' })
+        .sort({ created_at: -1, count_watch: -1, count_register: -1 })
+        .limit(3);
+
+    res.status(200).json({
+        success: true,
+        data: courses
+    });
+
+});
+
+exports.getCourseWatchMost = asyncHandler(async (req, res, next) => {
+    const courses = await Courses.find({ is_published: true })
+        .populate({ path: 'lecturer_id', select: '_id name' })
+        .sort({ count_watch: -1 })
+        .limit(10);
+
+    res.status(200).json({
+        success: true,
+        data: courses
+    });
+});
+
+exports.getAllNewCourse = asyncHandler(async (req, res, next) => {
+    const courses = await Courses.find({ is_published: true })
+        .populate({ path: 'lecturer_id', select: '_id name' })
+        .sort({ created_at: -1 })
+        .limit(10)
+
+    res.status(200).json({
+        success: true,
+        data: courses
+    });
+});
+
+exports.getCategoriesRegisterMost = asyncHandler(async (req, res, next) => {
+    const aggregatorOpts = [
+        {
+            $group: {
+                _id: "$categories_id",
+                count_register: { $sum: "$count_register" }
+            },
+        },
+        { $limit: 4 }
+    ]
+
+    const courses = await Courses.aggregate(aggregatorOpts).exec();
+    let ids = courses.map(ele => ele._id);
+    console.log(ids);
+    const categories = await Categories.find({ '_id': { $in: ids } });
+    console.log(categories);
+    // const courses = await Courses.find({ is_published: true })
+    //     .populate({ path: 'categories_id', select: '_id name' })
+    //     .sort({ count_register: -1 })
+    //     .limit(10);
+
+    res.status(200).json({
+        success: true,
+        data: categories
+    });
+});
+
+exports.getAllCourseRelated = asyncHandler(async (req, res, next) => {
+    const course = await Courses.findOne({ _id: req.params.id, is_published: true });
+    if (!course) {
+        return next(new ErrorResponse(`Course isn't exists`, 404));
+    }
+
+    const courses = await Courses.find({ categories_id: course.categories_id, _id: { $ne: course._id } }).populate({
+        path: 'lecturer_id',
+        populate: { path: 'user_id', select: 'name email avatar' }
+    }).limit(5);
+
+    res.status(200).json({
+        success: true,
+        data: courses
+    });
+});
+

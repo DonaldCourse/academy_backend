@@ -4,11 +4,6 @@ const CourseReviewSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please add a title for the review'],
         trim: true,
-        maxlength: 100
-    },
-    text: {
-        type: String,
-        required: [true, 'Please add some text'],
     },
     rating: {
         type: Number,
@@ -26,10 +21,14 @@ const CourseReviewSchema = new mongoose.Schema({
         ref: 'Students',
         required: true,
     },
-    createdAt: {
+    created_at: {
         type: Date,
         default: Date.now
-    }
+    },
+    updated_at: {
+        type: Date,
+        default: Date.now
+    },
 }, {
 
 });
@@ -50,12 +49,12 @@ CourseReviewSchema.statics.getAvergeRating = async function (courseID, action) {
 
     try {
         await this.model('Courses').findByIdAndUpdate(courseID, {
-            rating: Math.ceil(obj[0].rating / 10) * 10
+            rating: Math.round(obj[0].rating * 2) / 2
         });
-
-        await this.model('Courses').findByIdAndUpdate(courseID, {
-            count_rating: count_rating + (action ? 1 : (-1))
-        });
+        // let course = await this.model('Courses').findOne({ _id: courseID });
+        // await this.model('Courses').findByIdAndUpdate(courseID, {
+        //     count_rating: course.count_rating + (action ? 1 : (-1))
+        // });
     } catch (error) {
         console.log(error);
     }
@@ -63,11 +62,11 @@ CourseReviewSchema.statics.getAvergeRating = async function (courseID, action) {
     console.log(obj);
 };
 
-ReviewSchema.post('save', function () {
+CourseReviewSchema.post('save', function () {
     this.constructor.getAvergeRating(this.course_id, true);
 });
 
-ReviewSchema.pre('remove', function () {
+CourseReviewSchema.pre('remove', function () {
     this.constructor.getAvergeRating(this.course_id, false);
 });
 
