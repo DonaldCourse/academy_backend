@@ -10,15 +10,19 @@ const CourseRegisterSchema = new mongoose.Schema({
         ref: 'Students',
         required: true,
     },
-    createdAt: {
+    created_at: {
         type: Date,
         default: Date.now
-    }
+    },
+    updated_at: {
+        type: Date,
+        default: Date.now
+    },
 }, {
 
 });
 
-CourseReviewSchema.statics.getCountRegister = async function (courseID, action) {
+CourseRegisterSchema.statics.getCountRegister = async function (courseID, action) {
     try {
         await this.model('Courses').findByIdAndUpdate(courseID, {
             count_register: count_register + (action ? 1 : (-1))
@@ -30,11 +34,11 @@ CourseReviewSchema.statics.getCountRegister = async function (courseID, action) 
     console.log(obj);
 };
 
-ReviewSchema.post('save', function () {
+CourseRegisterSchema.post('save', function () {
     this.constructor.getCountRegister(this.course_id, true);
 });
 
-ReviewSchema.pre('remove', function () {
+CourseRegisterSchema.pre('remove', function () {
     this.constructor.getCountRegister(this.course_id, false);
 });
 
