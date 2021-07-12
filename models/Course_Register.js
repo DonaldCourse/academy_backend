@@ -24,14 +24,14 @@ const CourseRegisterSchema = new mongoose.Schema({
 
 CourseRegisterSchema.statics.getCountRegister = async function (courseID, action) {
     try {
+        let course = await this.model('Courses').findOne({ _id: courseID });
+        console.log(course);
         await this.model('Courses').findByIdAndUpdate(courseID, {
-            count_register: count_register + (action ? 1 : (-1))
+            count_register: course.count_register + (action ? 1 : (-1))
         });
     } catch (error) {
         console.log(error);
     }
-
-    console.log(obj);
 };
 
 CourseRegisterSchema.post('save', function () {
