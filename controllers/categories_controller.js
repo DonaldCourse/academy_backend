@@ -81,7 +81,7 @@ exports.findAllCategoriesOfTeacher = asyncHandler(async (req, res, next) => {
 
 exports.getCategoryDetail = asyncHandler(async (req, res, next) => {
     try {
-        const category = await Categories.findOne({ _id: req.params.categoryId });
+        const category = await Categories.findOne({ _id: req.params.id });
         if (!category) {
             return next(new ErrorResponse("Category not found", 400));
         }

@@ -27,7 +27,7 @@ exports.createCourseReview = asyncHandler(async (req, res, next) => {
     if (!student || !course) {
         return next(new ErrorResponse("Student not found or Course not found", 400));
     }
-    const reviewOld = await Course_Review.findOne({ student_id: student._id });
+    const reviewOld = await Course_Review.findOne({ student_id: student._id, course_id: course._id });
     if (reviewOld) {
         return next(new ErrorResponse("You sent a feedback for our ago", 400));
     }

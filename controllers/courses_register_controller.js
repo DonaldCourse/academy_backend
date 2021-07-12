@@ -14,7 +14,7 @@ const { findAllCourseReview } = require('../services/courses_review_service');
 const ErrorResponse = require('../utils/errorResponse')
 
 // @desc POST add a courses to a bootcamp
-// @route POST /api/course/:id/register
+// @route POST /api/courses/:id/register
 // access Private
 exports.registerCourse = asyncHandler(async (req, res, next) => {
     const student = await Students.findOne({ user_id: req.user.id });
@@ -22,7 +22,7 @@ exports.registerCourse = asyncHandler(async (req, res, next) => {
     if (!student || !course) {
         return next(new ErrorResponse("Student not found or Course not found", 400));
     }
-    const registerOld = await Course_Register.findOne({ student_id: student._id });
+    const registerOld = await Course_Register.findOne({ student_id: student._id, course_id: course._id });
     if (registerOld) {
         return next(new ErrorResponse("You registed a course ago", 400));
     }
@@ -34,6 +34,29 @@ exports.registerCourse = asyncHandler(async (req, res, next) => {
         success: true,
         data: review
     });
+});
+
+// @desc GET add a courses to a bootcamp
+// @route GET /api/courses/:id/check
+// access Private
+exports.checkRegisterCourse = asyncHandler(async (req, res, next) => {
+    const student = await Students.findOne({ user_id: req.user.id });
+    const course = await Courses.findOne({ _id: req.params.id });
+    if (!student || !course) {
+        return next(new ErrorResponse("Student not found or Course not found", 400));
+    }
+    const registerOld = await Course_Register.findOne({ student_id: student._id, course_id: course._id });
+    if (registerOld) {
+        res.status(200).json({
+            success: true,
+            data: true
+        });
+    } else {
+        res.status(200).json({
+            success: true,
+            data: false
+        });
+    }
 });
 
 // @desc GET add a courses to a bootcamp

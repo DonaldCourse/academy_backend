@@ -161,7 +161,7 @@ exports.logout = asyncHandler(async (req, res, next) => {
         options.secure = true
     }
 
-    res.status(status).cookie('token', 'none', options).json({
+    res.status(200).cookie('token', 'none', options).json({
         success: true
     });
 });

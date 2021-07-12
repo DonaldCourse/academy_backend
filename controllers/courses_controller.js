@@ -46,13 +46,13 @@ exports.getCourseOfTeacher = asyncHandler(async (req, res, next) => {
         return next(new ErrorResponse("Tutor not found", 400));
     }
     if (req.query.categoriesId) {
-        const courses = await findAllCourses(req, null, { categories_id: req.query.categoriesId, lecturer_id: tutor._id });
+        const courses = await findAllCourses(req, { categories_id: req.query.categoriesId, lecturer_id: tutor._id });
         res.status(200).json({
             success: true,
             data: courses
         });
     } else {
-        const data = await findAllCourses(req, null, { lecturer_id: tutor._id })
+        const data = await findAllCourses(req, { lecturer_id: tutor._id })
         res.status(200).json(data);
     }
 });
@@ -223,13 +223,21 @@ exports.updateCourseOfAdmin = asyncHandler(async (req, res, next) => {
 // access PUBLIC
 exports.getCourses = asyncHandler(async (req, res, next) => {
     if (req.query.categoriesId) {
-        const courses = await findAllCourses(req, null, { categories_id: req.query.categoriesId, is_published: true });
+        const result = await Catagories.find({ "ancestors._id": req.query.categoriesId })
+            .select({ "_id": true })
+            .exec();
+        let categories = [];
+        JSON.parse(JSON.stringify(result)).map(item => {
+            return categories.push({ categories_id: item._id })
+        });
+        categories.push({ categories_id: req.query.categoriesId });
+        const courses = await findAllCourses(req, { $or: categories, is_published: true });
         res.status(200).json({
             success: true,
             data: courses
         });
     } else {
-        const data = await findAllCourses(req, null, { is_published: true })
+        const data = await findAllCourses(req, { is_published: true })
         res.status(200).json(data);
     }
 });
