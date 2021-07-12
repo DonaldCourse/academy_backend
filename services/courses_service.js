@@ -2,9 +2,8 @@ const Courses = require('../models/Courses');
 
 exports.findAllCourses = async (req, condition) => {
     let query;
-    console.log(condition);
     const reqQuery = { ...req.query };
-    const removeFields = ['select', 'sort', 'page', 'limit'];
+    const removeFields = ['select', 'sort', 'page', 'limit', 'categoriesId'];
     removeFields.forEach(param => delete reqQuery[param]);
     let queryStr = JSON.stringify(reqQuery);
     queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, match => `$${match}`);
