@@ -94,5 +94,5 @@ const CoursesSchema = new mongoose.Schema({
     autoIndex: true
 });
 
-CoursesSchema.ensureIndex({ title: 'text', description: 'text', overview: 'text' });
+CoursesSchema.index({ title: 'text', description: 'text', overview: 'text' });
 module.exports = mongoose.model('Courses', CoursesSchema);

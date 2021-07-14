@@ -27,6 +27,8 @@ const UserSchema = new mongoose.Schema({
         required: [true, 'Please add a password'],
         select: false
     },
+    registerPasswordToken: String,
+    registerPasswordExpire: Date,
     resetPasswordToken: String,
     resetPasswordExpire: Date,
     createdAt: {
@@ -63,6 +65,17 @@ UserSchema.methods.resetTokenMethod = function () {
     this.resetPasswordToken = crypto.createHash('sha256').update(resetToken).digest('hex');
 
     this.resetPasswordExpire = Date.now() + 10 * 60 * 1000;
+
+    return resetToken;
+};
+
+UserSchema.methods.registerTokenMethod = function () {
+
+    const resetToken = crypto.randomBytes(20).toString('hex');
+
+    this.registerPasswordToken = crypto.createHash('sha256').update(resetToken).digest('hex');
+
+    this.registerPasswordExpire = Date.now() + 10 * 60 * 1000;
 
     return resetToken;
 };

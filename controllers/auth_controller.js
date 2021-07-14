@@ -1,4 +1,5 @@
 const crypto = require('crypto');
+const { validationResult } = require('express-validator');
 const path = require('path');
 const asyncHandler = require('../middlewares/async');
 const Students = require('../models/Students');
@@ -11,6 +12,13 @@ const sendEmail = require('../utils/sendEmail');
 // @route POST /api/v1/auth/register
 // access PUBLIC
 exports.register = asyncHandler(async (req, res, next) => {
+    const result = validationResult(req);
+    if (!result.isEmpty()) {
+        res.status(422).json({
+            success: false,
+            errors: result.array()
+        });
+    }
     const { name, email, password, role } = req.body;
 
     const currentUser = await User.findOne({ email }).select('+password');
@@ -31,19 +39,59 @@ exports.register = asyncHandler(async (req, res, next) => {
         email
     });
 
-    const token = user.getSignedJwtToken();
+    const registerToken = user.registerTokenMethod();
 
-    res.status(200).json({
-        success: true,
-        token,
-        user: {
-            role: user.role,
+    await user.save({ validateBeforeSave: false });
+    console.log(user.email);
+    const resetUrl = `${req.protocol}://localhost:3000/register/validate?token=${registerToken}`;
+
+    const message = `Please make a GET request to validate your account`
+
+    try {
+        await sendEmail({
             email: user.email,
-            name: user.name
-        }
-    });
+            subject: 'Validate your account',
+            url: resetUrl,
+            text: message
+        });
+
+        res.status(200).json({
+            success: true,
+            message: `Email sent to a email address ${user.email}`
+        });
+    } catch (error) {
+        user.registerPasswordToken = undefined;
+        user.registerPasswordExpire = undefined;
+
+        await user.save({ validateBeforeSave: false });
+
+        return next(new ErrorResponse('Email could not be sent ', 500));
+
+    }
 });
 
+// @desc GET validate account
+// @route GET /api/v1/auth/validate-account?token=
+// access PUBLIC
+exports.validateNewAccount = asyncHandler(async (req, res, next) => {
+    const registerPasswordToken = crypto.createHash('sha256').update(req.query.token).digest('hex');
+    console.log(new Date().toISOString());
+    const user = await User.findOne({
+        registerPasswordToken,
+        registerPasswordExpire: { $lt: new Date().toISOString() }
+    });
+
+    if (!user) {
+        return next(new ErrorResponse(`Invalid token`, 400));
+    }
+
+    user.registerPasswordToken = undefined;
+    user.registerPasswordExpire = undefined;
+
+    await user.save();
+
+    sendTokenResponse(user, 200, res);
+});
 // @desc POST register a user
 // @route POST /api/v1/auth/tutor/register
 // access PUBLIC
@@ -60,7 +108,7 @@ exports.registerTutor = asyncHandler(async (req, res, next) => {
         name,
         email,
         password,
-        role : "teacher"
+        role: "teacher"
     });
 
     const tutor = await Tutors.create({
@@ -91,7 +139,7 @@ exports.registerAdmin = asyncHandler(async (req, res, next) => {
         name,
         email,
         password,
-        role : "administrator"
+        role: "administrator"
     });
 
     res.status(200).json({
@@ -113,6 +161,10 @@ exports.login = asyncHandler(async (req, res, next) => {
     const user = await User.findOne({ email }).select('+password');
 
     if (!user) {
+        return next(new ErrorResponse('Invalid Credential', 401));
+    }
+
+    if (user.registerPasswordToken) {
         return next(new ErrorResponse('Invalid Credential', 401));
     }
 
@@ -176,25 +228,27 @@ exports.forgot = asyncHandler(async (req, res, next) => {
         return next(new ErrorResponse('Please provide an email', 400));
     }
 
-    const user = User.findOne({ email: email });
+    const user = await User.findOne({ email: email });
 
     if (!user) {
         return next(new ErrorResponse(`There is no user with email ${email}`, 401));
     }
 
     const resetToken = user.resetTokenMethod();
-
+    user.registerPasswordToken = undefined;
+    user.registerPasswordExpire = undefined;
     await user.save({ validateBeforeSave: false });
 
-    const resetUrl = `${req.protocol}://${req.get('host')}/api/v1/auth/resetpassword/${resetToken}`;
+    const resetUrl = `${req.protocol}://localhost:3000/resetpassword?token=${resetToken}`;
 
-    const message = `Please make a PUT request to reset password : ${resetUrl}`
+    const message = `Please click to link to reset password`
 
     try {
         await sendEmail({
             email: user.email,
             subject: 'Password reset token',
-            message
+            url: resetUrl,
+            text: message
         });
 
         res.status(200).json({
@@ -213,15 +267,15 @@ exports.forgot = asyncHandler(async (req, res, next) => {
 });
 
 // @desc POST reset password
-// @route POST /api/v1/auth/resetpassword/:resettoken
+// @route POST /api/v1/auth/resetpassword?token=
 // access PUBLIC
 exports.resetpassword = asyncHandler(async (req, res, next) => {
 
-    const resetPasswordToken = crypto.createHash('sha256').update(req.params.resettoken).digest('hex');
+    const resetPasswordToken = crypto.createHash('sha256').update(req.query.token).digest('hex');
 
     const user = await User.findOne({
         resetPasswordToken,
-        resetPasswordExpire: { $gt: DataCue.now() }
+        resetPasswordExpire: { $lt: new Date().toISOString() }
     });
 
     if (!user) {
@@ -267,7 +321,7 @@ exports.updatePassword = asyncHandler(async (req, res, next) => {
         return next(new ErrorResponse('Password is incorrect', 401));
     }
 
-    user.password = req.body.newPassword;
+    user.password = req.body.password;
     await user.save();
 
     sendTokenResponse(user, 200, res);

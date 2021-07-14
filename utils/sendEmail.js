@@ -6,6 +6,7 @@ const sendEmail = async (options) => {
 
   // create reusable transporter object using the default SMTP transport
   let transporter = nodemailer.createTransport({
+    service: 'Gmail',
     host: process.env.SMTP_HOTS,
     port: process.env.SMTP_PORT,
     secure: false, // true for 465, false for other ports
@@ -20,7 +21,12 @@ const sendEmail = async (options) => {
     from: `${process.env.FROM_EMAIL} <${process.env.FROM_NAME}>`, // sender address
     to: options.email, // list of receivers
     subject: options.subject, // Subject line
-    text: options.text, // plain text body
+    text: 'You recieved message from ' + options.email,
+    html: `<div>
+      <p>${options.text}
+      </p>
+      <a href="${options.url}">${options.url}</a>
+    </div>`,
   };
 
   const info = await transporter.sendMail(message);

@@ -1,6 +1,6 @@
-const Course_Register = require("../models/Course_Register");
+const Course_Favorite = require("../models/Course_Favorite");
 
-exports.findAllCourseRegister = async (req, condition) => {
+exports.findAllCourseFavorite = async (req, condition) => {
     let query;
     console.log(condition);
     const reqQuery = { ...req.query };
@@ -9,9 +9,9 @@ exports.findAllCourseRegister = async (req, condition) => {
     let queryStr = JSON.stringify(reqQuery);
     queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, match => `$${match}`);
     if (condition) {
-        query = Course_Register.find(JSON.parse(queryStr)).where(condition);
+        query = Course_Favorite.find(JSON.parse(queryStr)).where(condition);
     } else {
-        query = Course_Register.find(JSON.parse(queryStr));
+        query = Course_Favorite.find(JSON.parse(queryStr));
     }
     if (req.query.select) {
         const fields = req.query.select.split(',');
@@ -33,9 +33,9 @@ exports.findAllCourseRegister = async (req, condition) => {
     const endIndex = page * limit;
     let total = 0;
     if (condition) {
-        total = await Course_Register.where(condition).countDocuments();
+        total = await Course_Favorite.where(condition).countDocuments();
     } else {
-        total = await Course_Register.countDocuments();
+        total = await Course_Favorite.countDocuments();
     }
     query = query.skip(startIndex).limit(limit);
 

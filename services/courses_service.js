@@ -1,3 +1,4 @@
+const Categories = require('../models/Categories');
 const Courses = require('../models/Courses');
 
 exports.findAllCourses = async (req, condition) => {
@@ -85,6 +86,7 @@ exports.SearchCourses = async (req) => {
     const results = await query;
     const bestSeller = await query.select("_id").sort("-count_register").skip(startIndex).limit(3);
     const newest = await query.select("_id").sort("-created_at").skip(startIndex).limit(3);
+
     const totalItems = total;
     const currentPage = page ? +page : 0;
     const totalPages = Math.ceil(totalItems / limit);
@@ -95,6 +97,24 @@ exports.SearchCourses = async (req) => {
         newest: newest,
         totalItems: totalItems,
         currentPage: currentPage,
-        totalPages: totalPages
+        totalPages: totalPages,
     }
 }
+
+exports.SearchCategories = async (req) => {
+
+    const categories_id = await Courses.aggregate([
+        { $match: { $text: { $search: `"${req.query.q}"` } } },
+        {
+            $group: { _id: "$categories_id" }
+        },
+    ]);
+
+    console.log(categories_id);
+    let categories = []
+    if (categories_id.length > 0) {
+        categories = await Categories.find({ $or: categories_id })
+    }
+    return categories
+}
+

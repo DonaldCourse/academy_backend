@@ -3,6 +3,7 @@ const { body } = require('express-validator');
 const { getCourses, getLessonOfCourse, getCourseDetail, getCourseOfWeek, getAllNewCourse, getCourseWatchMost, getCategoriesRegisterMost, getAllCourseRelated, searchCourse } = require('../controllers/courses_controller');
 const { createCourseReview, getAllCourseReview } = require('../controllers/courses_review_controller');
 const { registerCourse, getAllCourseRegisted, getAllMyCourse, checkRegisterCourse } = require('../controllers/courses_register_controller');
+const { favoriteCourse, deleteFavoriteCourse, getAllMyFavoriteCourse, checkFavoriteCourse } = require('../controllers/courses_favorite_controller');
 const { protect, authorize } = require('../middlewares/auth');
 const router = express.Router({ mergeParams: true });
 
@@ -20,6 +21,8 @@ router.route('/categoriesRegisterMost')
     .get(getCategoriesRegisterMost);
 router.route('/my-courses')
     .get(protect, authorize("student"), getAllMyCourse);
+router.route('/my-favorite')
+    .get(protect, authorize("student"), getAllMyFavoriteCourse);
 router.route('/')
     .get(getCourses);
 router.route('/search')
@@ -39,4 +42,9 @@ router.route('/:id/feedback')
     .post(body('title').isString().notEmpty(),
         body('rating').isFloat({ min: 1, max: 5 }),
         protect, authorize('student'), createCourseReview);
+router.route('/:id/favorite')
+    .post(protect, authorize('student'), favoriteCourse)
+    .delete(protect, authorize('student'), deleteFavoriteCourse);
+router.route('/:id/check-favorite')
+    .get(protect, authorize("student"), checkFavoriteCourse);
 module.exports = router;

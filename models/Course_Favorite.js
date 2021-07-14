@@ -42,4 +42,4 @@ CourseFavoriteSchema.pre('remove', function () {
     this.constructor.getCountWatch(this.course_id, false);
 });
 
-module.exports = mongoose.model('CourseRegister', CourseRegisterSchema);
+module.exports = mongoose.model('CourseFavorite', CourseFavoriteSchema);

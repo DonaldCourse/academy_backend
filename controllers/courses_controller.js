@@ -7,7 +7,7 @@ const Lessons = require('../models/Lessons');
 const Tutors = require('../models/Tutors');
 const User = require('../models/User');
 
-const { findAllCourses, SearchCourses } = require('../services/courses_service');
+const { findAllCourses, SearchCourses, SearchCategories } = require('../services/courses_service');
 
 const ErrorResponse = require('../utils/errorResponse')
 
@@ -371,7 +371,21 @@ exports.searchCourse = asyncHandler(async (req, res, next) => {
     res.status(200).json({
         success: true,
         data: {
-            courses
+            courses,
+        }
+    });
+});
+
+// @desc GET courses
+// @route GET /api/v1/courses
+// @route GET /api/categories/search?q=jfjfj&sort=
+// access PUBLIC
+exports.searchCategories = asyncHandler(async (req, res, next) => {
+    const categories = await SearchCategories(req);
+    res.status(200).json({
+        success: true,
+        data: {
+            categories
         }
     });
 });
