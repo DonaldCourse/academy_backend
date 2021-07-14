@@ -24,3 +24,9 @@ exports.buildHierarchyAncestors = async (category_id, parent_id) => {
             this.buildHierarchyAncestors(doc._id, category_id)
         })
 }
+
+exports.SearchCategories = async (req) => {
+    let query;
+    query = await Categories.find({ $text: { $search: `"${req.query.q}"` } }, { score: { $meta: "textScore" } }).sort({ score: { $meta: "textScore" } });
+    return query
+}

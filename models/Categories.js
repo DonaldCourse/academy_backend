@@ -32,6 +32,8 @@ const CategoriesSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
+}, {
+    autoIndex: true
 });
 
 CategoriesSchema.pre('save', async function (next) {

@@ -24,7 +24,7 @@ exports.findAllCourses = async (req, condition) => {
         console.log(sortBy);
 
     } else {
-        query = query.sort('created_at');
+        query = query.sort('-created_at');
     }
 
     const page = parseInt(req.query.page, 10) || 1;
@@ -54,4 +54,47 @@ exports.findAllCourses = async (req, condition) => {
         totalPages: totalPages
     }
 
+}
+
+exports.SearchCourses = async (req) => {
+    let query;
+    query = Courses.find({ $text: { $search: `"${req.query.q}"` } }, { score: { $meta: "textScore" } }).where({ is_published: true }).sort({ score: { $meta: "textScore" } });
+    let total = 0;
+    total = await Courses.find({ $text: { $search: `"${req.query.q}"` } }).where({ is_published: true }).countDocuments();
+    if (req.query.sort) {
+        if (req.query.sort == "most-registed") {
+            query = query.sort('-count_register');
+        } else if (req.query.sort == "highest-rated") {
+            query = query.sort('-count_rating');
+        } else {
+            query = query.sort('-created_at');
+        }
+    } else {
+        query = query.sort({ created_at: -1 });
+    }
+
+    const page = parseInt(req.query.page, 10) || 1;
+    const limit = parseInt(req.query.limit, 10) || 100;
+    const startIndex = (page - 1) * limit;
+    const endIndex = page * limit;
+
+    query = query.skip(startIndex).limit(limit);
+
+    query = query.populate('lecturer_id').populate('categories_id');
+
+    const results = await query;
+    const bestSeller = await query.select("_id").sort("-count_register").skip(startIndex).limit(3);
+    const newest = await query.select("_id").sort("-created_at").skip(startIndex).limit(3);
+    const totalItems = total;
+    const currentPage = page ? +page : 0;
+    const totalPages = Math.ceil(totalItems / limit);
+
+    return {
+        list: results,
+        bestSeller: bestSeller,
+        newest: newest,
+        totalItems: totalItems,
+        currentPage: currentPage,
+        totalPages: totalPages
+    }
 }

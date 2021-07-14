@@ -1,6 +1,6 @@
 const express = require('express');
 const { body } = require('express-validator');
-const { getCourses, getLessonOfCourse, getCourseDetail, getCourseOfWeek, getAllNewCourse, getCourseWatchMost, getCategoriesRegisterMost, getAllCourseRelated } = require('../controllers/courses_controller');
+const { getCourses, getLessonOfCourse, getCourseDetail, getCourseOfWeek, getAllNewCourse, getCourseWatchMost, getCategoriesRegisterMost, getAllCourseRelated, searchCourse } = require('../controllers/courses_controller');
 const { createCourseReview, getAllCourseReview } = require('../controllers/courses_review_controller');
 const { registerCourse, getAllCourseRegisted, getAllMyCourse, checkRegisterCourse } = require('../controllers/courses_register_controller');
 const { protect, authorize } = require('../middlewares/auth');
@@ -22,6 +22,8 @@ router.route('/my-courses')
     .get(protect, authorize("student"), getAllMyCourse);
 router.route('/')
     .get(getCourses);
+router.route('/search')
+    .get(searchCourse);
 router.route('/:id')
     .get(getCourseDetail);
 router.route('/:id/lessons')

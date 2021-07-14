@@ -7,7 +7,7 @@ const Lessons = require('../models/Lessons');
 const Tutors = require('../models/Tutors');
 const User = require('../models/User');
 
-const { findAllCourses } = require('../services/courses_service');
+const { findAllCourses, SearchCourses } = require('../services/courses_service');
 
 const ErrorResponse = require('../utils/errorResponse')
 
@@ -361,3 +361,17 @@ exports.getAllCourseRelated = asyncHandler(async (req, res, next) => {
     });
 });
 
+// @desc GET courses
+// @route GET /api/v1/courses
+// @route GET /api/courses/search?q=jfjfj&sort=
+// access PUBLIC
+exports.searchCourse = asyncHandler(async (req, res, next) => {
+    const courses = await SearchCourses(req);
+    console.log(courses);
+    res.status(200).json({
+        success: true,
+        data: {
+            courses
+        }
+    });
+});
