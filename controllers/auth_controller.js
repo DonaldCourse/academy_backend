@@ -340,7 +340,55 @@ exports.validateUser = asyncHandler(async (req, res, next) => {
             role: user.role,
             email: user.email,
             name: user.name,
-            avatar: user.avatar
+            avatar: user.avatar ? user.avatar : ""
         }
     })
+});
+
+exports.getUserProfileStudent = asyncHandler(async (req, res, next) => {
+    const user = await User.findOne({ _id: req.user.id });
+    res.status(200).json({
+        success: true,
+        user: {
+            role: user.role,
+            email: user.email,
+            name: user.name,
+            avatar: user.avatar ? user.avatar : ""
+        }
+    })
+});
+
+exports.updateUserProfileStudent = asyncHandler(async (req, res, next) => {
+    const result = validationResult(req);
+    if (!result.isEmpty()) {
+        res.status(422).json({
+            success: false,
+            errors: result.array()
+        });
+    }
+    let user = await User.findById(req.user.id);
+
+    if (!user) {
+        return next(new ErrorResponse('Not exists user', 400));
+    }
+
+    user = await User.findOneAndUpdate({ _id: user._id }, req.body, {
+        new: true,
+        runValidators: true
+    });
+
+    await Students.findOneAndUpdate({ user_id: user._id }, req.body, {
+        new: true,
+        runValidators: true
+    })
+
+    res.status(200).json({
+        success: true,
+        user: {
+            role: user.role,
+            email: user.email,
+            name: user.name,
+            avatar: user.avatar ? user.avatar : ""
+        }
+    });
 });
