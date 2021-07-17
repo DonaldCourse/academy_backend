@@ -42,7 +42,8 @@ router.route('/courses/:courseId')
         body('weeks').isInt().optional(),
         body('tuition').isInt().optional(),
         body('discount').isInt().optional(),
-        body('categories_id').isString().custom(value => {
+        body('avatar').isURL().optional(),
+        body('categories_id').isString().optional().custom(value => {
             return Categories.findOne({ _id: value }).then(category => {
                 if (!category) {
                     return Promise.reject(`Category is not found with ${value}`)
@@ -69,10 +70,9 @@ router.route('/courses/:id/lessons/:lessonId')
 
 router.route('/profile')
     .get(protect, authorize('teacher'), getTutorProfile)
-    .put(body('introduction').isString().optional(),
-        body('intro_video').isURL().optional(),
+    .put(body('name').isString().optional(),
+        body('email').isEmail().optional(),
         body('education').isString().optional(),
-        body('professional_background').isString().optional(),
         protect, authorize('teacher'), updateTutorProfile)
 
 module.exports = router;

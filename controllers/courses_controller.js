@@ -266,7 +266,8 @@ exports.getLessonOfCourse = asyncHandler(async (req, res, next) => {
 // @route GET /api/courses/:id
 // access PUBLIC
 exports.getCourseDetail = asyncHandler(async (req, res, next) => {
-    const course = await Courses.findOne({ _id: req.params.id, is_published: true }).populate({ path: 'lecturer_id', select: '_id name' });
+    const course = await Courses.findOne({ _id: req.params.id, is_published: true })
+        .populate({ path: 'lecturer_id', populate: { path: 'user_id', select: 'name email avatar' } });
     if (!course) {
         return next(new ErrorResponse(`Course isn't exists`, 404));
     }
@@ -282,7 +283,7 @@ exports.getCourseDetail = asyncHandler(async (req, res, next) => {
 
 exports.getCourseOfWeek = asyncHandler(async (req, res, next) => {
     const courses = await Courses.find({ is_published: true })
-        .populate({ path: 'lecturer_id', select: '_id name' })
+        .populate({ path: 'lecturer_id', populate: { path: 'user_id', select: 'name email avatar' } })
         .sort({ created_at: -1, count_watch: -1, count_register: -1 })
         .limit(3);
 
@@ -295,7 +296,7 @@ exports.getCourseOfWeek = asyncHandler(async (req, res, next) => {
 
 exports.getCourseWatchMost = asyncHandler(async (req, res, next) => {
     const courses = await Courses.find({ is_published: true })
-        .populate({ path: 'lecturer_id', select: '_id name' })
+        .populate({ path: 'lecturer_id', populate: { path: 'user_id', select: 'name email avatar' } })
         .sort({ count_watch: -1 })
         .limit(10);
 
@@ -307,7 +308,7 @@ exports.getCourseWatchMost = asyncHandler(async (req, res, next) => {
 
 exports.getAllNewCourse = asyncHandler(async (req, res, next) => {
     const courses = await Courses.find({ is_published: true })
-        .populate({ path: 'lecturer_id', select: '_id name' })
+        .populate({ path: 'lecturer_id', populate: { path: 'user_id', select: 'name email avatar' } })
         .sort({ created_at: -1 })
         .limit(10)
 

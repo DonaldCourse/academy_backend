@@ -44,7 +44,7 @@ exports.findAllCourseFavorite = async (req, condition) => {
         populate: { path: 'user_id', select: 'name email avatar' }
     }).populate({
         path: 'course_id',
-        populate: { path: 'lecturer_id'}
+        populate: { path: 'lecturer_id', populate: { path: "user_id", select: "avatar name" } }
     });
 
     const results = await query;

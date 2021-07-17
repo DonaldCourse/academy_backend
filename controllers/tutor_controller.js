@@ -3,6 +3,7 @@ const asyncHandler = require('../middlewares/async');
 const Tutors = require('../models/Tutors');
 const ErrorResponse = require('../utils/errorResponse');
 const TutorService = require('../services/tutors_service');
+const User = require('../models/User');
 /**
  * Group Admin
  */
@@ -21,15 +22,20 @@ exports.getListTutorOfAdmin = asyncHandler(async (req, res, next) => {
 // @route GET /api/v1/teacher/:id/profile
 // access Private
 exports.getTutorProfile = asyncHandler(async (req, res, next) => {
-    const tutor = await Tutors.findOne({ user_id: req.user.id });
+    const tutor = await Tutors.findOne({ user_id: req.user.id }).populate({ path: 'user_id', select: 'role name email avatar' });
     if (!tutor) {
-        return next(new ErrorResponse("Tutor not found,  Course not found", 400));
+        return next(new ErrorResponse("Tutor not found", 400));
     }
-
     res.status(200).json({
         success: true,
-        data: tutor
-    });
+        user: {
+            role: tutor.user_id.role,
+            email: tutor.user_id.email,
+            name: tutor.user_id.name,
+            education: tutor.education ? tutor.education : "",
+            avatar: tutor.user_id.avatar ? tutor.user_id.avatar : ""
+        }
+    })
 });
 
 /**
@@ -47,19 +53,31 @@ exports.updateTutorProfile = asyncHandler(async (req, res, next) => {
         });
         return next();
     }
-    let tutor = await Tutors.findOne({ user_id: req.user.id });
 
-    if (!tutor) {
-        return next(new ErrorResponse("Tutor not found", 400));
+    let user = await User.findById(req.user.id);
+
+    if (!user) {
+        return next(new ErrorResponse('Not exists user', 400));
     }
 
-    tutor = await Tutors.findByIdAndUpdate(tutor._id, req.body, {
+    user = await User.findOneAndUpdate({ _id: user._id }, req.body, {
         new: true,
         runValidators: true
     });
 
+    tutor = await Tutors.findOneAndUpdate({ user_id: user._id }, req.body, {
+        new: true,
+        runValidators: true
+    })
+
     res.status(200).json({
         success: true,
-        data: tutor
+        user: {
+            role: user.role,
+            email: user.email,
+            name: user.name,
+            education: tutor.education ? tutor.education : "",
+            avatar: user.avatar ? user.avatar : ""
+        }
     });
 });

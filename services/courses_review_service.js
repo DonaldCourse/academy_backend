@@ -57,5 +57,4 @@ exports.findAllCourseReview = async (req, condition) => {
         currentPage: currentPage,
         totalPages: totalPages
     }
-
 }
