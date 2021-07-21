@@ -4,7 +4,8 @@ const Categories = require('../models/Categories');
 const ErrorResponse = require('../utils/errorResponse');
 const CategoriesSevice = require('../services/categories_service');
 const { getNestedChildren } = require('../utils/buildTree');
-const lodash = require('lodash')
+const lodash = require('lodash');
+const { validationResult } = require('express-validator');
 exports.createCategories = asyncHandler(async (req, res, next) => {
     let parent = req.body.parent ? req.body.parent : null;
     const categories = new Categories({ name: req.body.name, parent })
@@ -102,14 +103,15 @@ exports.updateCategoriesOfAdmin = asyncHandler(async (req, res, next) => {
     }
 
     const { name, parent_id } = req.body;
+    console.log(req.params.categoryId);
     let category
     if (!name) {
-        category = await Categories.findByIdAndUpdate(category_id, { $set: { "name": name } });
+        category = await Categories.findByIdAndUpdate(req.params.categoryId, { $set: { "name": name, "slug": slugify(name) } });
     } else if (!parent_id) {
-        category = await Categories.findByIdAndUpdate(category_id, { $set: { "parent": parent_id } });
+        category = await Categories.findByIdAndUpdate(req.params.categoryId, { $set: { "parent": parent_id } });
         CategoriesSevice.buildHierarchyAncestors(category._id, parent_id);
     } else {
-        category = await Categories.findByIdAndUpdate(category_id, { $set: { "parent": parent_id, "name": name } });
+        category = await Categories.findByIdAndUpdate(req.params.categoryId, { $set: { "parent": parent_id, "name": name, "slug": slugify(name) } });
         CategoriesSevice.buildHierarchyAncestors(category._id, parent_id);
     }
 
@@ -129,4 +131,19 @@ exports.findDescendants = asyncHandler(async (req, res, next) => {
         res.status(500).send(err);
     }
 })
+
+function slugify(string) {
+    const a = 'àáâäæãåāăąçćčđďèéêëēėęěğǵḧîïíīįìłḿñńǹňôöòóœøōõőṕŕřßśšşșťțûüùúūǘůűųẃẍÿýžźż·/_,:;'
+    const b = 'aaaaaaaaaacccddeeeeeeeegghiiiiiilmnnnnoooooooooprrsssssttuuuuuuuuuwxyyzzz------'
+    const p = new RegExp(a.split('').join('|'), 'g')
+
+    return string.toString().toLowerCase()
+        .replace(/\s+/g, '-') // Replace spaces with -
+        .replace(p, c => b.charAt(a.indexOf(c))) // Replace special characters
+        .replace(/&/g, '-and-') // Replace & with 'and'
+        .replace(/[^\w\-]+/g, '') // Remove all non-word characters
+        .replace(/\-\-+/g, '-') // Replace multiple - with single -
+        .replace(/^-+/, '') // Trim - from start of text
+        .replace(/-+$/, '') // Trim - from end of text
+}
 
