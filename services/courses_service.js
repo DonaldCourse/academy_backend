@@ -40,7 +40,7 @@ exports.findAllCourses = async (req, condition) => {
     }
     query = query.skip(startIndex).limit(limit);
 
-    query = query.populate('lecturer_id').populate('categories_id');
+    query = query.populate({ path: 'lecturer_id', populate: { path: "user_id", select: "avatar name" } }).populate('categories_id');
 
     const results = await query;
     const totalItems = total;
@@ -81,7 +81,7 @@ exports.SearchCourses = async (req) => {
 
     query = query.skip(startIndex).limit(limit);
 
-    query = query.populate('lecturer_id').populate('categories_id');
+    query = query.populate({ path: 'lecturer_id', populate: { path: "user_id", select: "avatar name" } }).populate('categories_id');
 
     const results = await query;
     const bestSeller = await query.select("_id").sort("-count_register").skip(startIndex).limit(3);

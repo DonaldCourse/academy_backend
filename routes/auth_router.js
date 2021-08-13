@@ -21,7 +21,7 @@ router.route('/login')
     .post(login);
 
 router.route('/logout')
-    .get(logout);
+    .post(logout);
 
 router.route('/forgotpassword')
     .post(forgot);
