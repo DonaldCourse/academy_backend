@@ -4,6 +4,8 @@ const { body } = require('express-validator');
 const { createCategories, findAllCategories, updateCategoriesOfAdmin, getCategoryDetail, findAllCategoriesOfAdmin } = require('../controllers/categories_controller');
 const { getCoursesOfAdministrator, publishedCoursesOfAdministrator, updateCourseOfAdmin } = require('../controllers/courses_controller');
 const { getListTutorOfAdmin } = require('../controllers/tutor_controller');
+const { getListStudentOfAdmin } = require('../controllers/student_controller');
+
 
 const router = express.Router();
 const Catagories = require('../models/Categories');
@@ -44,5 +46,8 @@ router.route('/courses/:courseId')
 
 router.route('/tutors')
     .get(protect, authorize('administrator'), getListTutorOfAdmin)
+
+router.route('/students')
+    .get(protect, authorize('administrator'), getListStudentOfAdmin)
 
 module.exports = router;

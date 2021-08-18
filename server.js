@@ -30,6 +30,7 @@ const { findAllCategories } = require('./controllers/categories_controller');
 const { getNestedChildren } = require('./utils/buildTree');
 const Categories = require('./models/Categories');
 const Courses = require('./models/Courses');
+const { SearchCoursesChatBot } = require('./services/courses_service');
 
 const app = express();
 
@@ -51,19 +52,19 @@ app.use(limiter);
 
 app.use(hpp()); // <- THIS IS THE NEW LINE
 
-var whitelist = ['http://localhost', 'http://localhost:5000', 'http://localhost:3002', 'http://localhost:3000', 'http://localhost:3001']
-var corsOptions = {
-    origin: function (origin, callback) {
-        if (whitelist.indexOf(origin) !== -1) {
-            callback(null, true)
-        } else {
-            console.log(origin);
-            callback(new Error('Not allowed by CORS'))
-        }
-    }
-}
+// var whitelist = ['http://localhost', 'http://localhost:5000', 'http://localhost:3002', 'http://localhost:3000', 'http://localhost:3001']
+// var corsOptions = {
+//     origin: function (origin, callback) {
+//         if (whitelist.indexOf(origin) !== -1) {
+//             callback(null, true)
+//         } else {
+//             console.log(origin);
+//             callback(new Error('Not allowed by CORS'))
+//         }
+//     }
+// }
 
-app.use(cors(corsOptions));
+app.use(cors());
 
 app.use(CookieParser());
 
@@ -125,6 +126,12 @@ bot.action("categories", async (ctx) => {
     })
 });
 
+bot.action("keyword", async (ctx) => {
+    let animalMessage = `Để tìm kiếm khoá học vui lòng nhập theo cú pháp /search-keyword`;
+    ctx.deleteMessage();
+    bot.telegram.sendMessage(ctx.chat.id, animalMessage)
+});
+
 bot.action(/categoryID+/, async (ctx) => {
     try {
         let category_id = ctx.match.input.substring(11);
@@ -138,8 +145,10 @@ bot.action(/categoryID+/, async (ctx) => {
         categories.push({ categories_id: category_id });
         const courses = await Courses.find({ $or: categories, is_published: true });
         if (courses.length > 0) {
-            courses.map(async(item, index) => {
-                return await bot.telegram.sendPhoto(ctx.chat.id, "https://photo-cms-baonghean.zadn.vn/w607/Uploaded/2021/ftgbtgazsnzm/2020_07_14/ngoctrinhmuonsinhcon1_swej7996614_1472020.jpg", {
+            courses.map(async (item, index) => {
+                const avatar = process.env.URL_IMAGE + item.avatar;
+                console.log(avatar);
+                return await bot.telegram.sendPhoto(ctx.chat.id, avatar, {
                     caption: item.title,
                     reply_markup: {
                         inline_keyboard: [
@@ -166,42 +175,41 @@ bot.action(/courseID+/, (ctx) => {
 
 });
 
-// bot.on('callback_query', (ctx) => {
-//     console.log(ctx.callbackQuery);
-//     const data = ctx.callbackQuery.data;
-//     switch (data) {
-//         case '//':
-
-//             break;
-
-//         default:
-//             break;
-//     }
-//     // Explicit usage
-//     ctx.telegram.answerCbQuery(ctx.callbackQuery.id)
-
-//     // Using context shortcut
-//     ctx.answerCbQuery()
-// })
+bot.command('/search', async (ctx) => {
+    try {
+        console.log(ctx.match)
+        let query = ctx.match.input.substring(7);
+        console.log(query);
+        const result = await SearchCoursesChatBot(query);
+        if (result.length > 0) {
+            result.map(async (item, index) => {
+                const avatar = process.env.URL_IMAGE + item.avatar;
+                console.log(avatar);
+                return await bot.telegram.sendPhoto(ctx.chat.id, avatar, {
+                    caption: item.title,
+                    reply_markup: {
+                        inline_keyboard: [
+                            [
+                                {
+                                    text: "Xem chi tiết khoá học",
+                                    url: "https://hatto.com/"
+                                }
+                            ]
+                        ]
+                    }
+                });
+            })
+        } else {
+            bot.telegram.sendMessage(ctx.chat.id, "Không tìm thấy khoá học !")
+        }
+    } catch (error) {
+        console.log(error);
+    }
+});
 
 bot.launch();
 
 app.use(errorHandle);
-
-// app.get('/webhook', (req, res) => f.registerHook(req, res));
-// app.post('/webhook', bodyParser.json({
-//     verify: f.verifySignature.call(f)
-// }));
-// app.post('/webhook', (req, res, next) => {
-//     return f.incoming(req, res, data => {
-//         try {
-//             console.log(data);
-//         } catch (e) {
-//             console.log(e);
-//         }
-//     });
-// })
-
 
 const port = process.env.PORT || 5000
 

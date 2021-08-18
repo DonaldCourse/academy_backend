@@ -21,7 +21,7 @@ router.route('/courses')
         body('weeks').isInt().optional(),
         body('tuition').isInt().optional(),
         body('discount').isInt().optional(),
-        body('avatar').isURL().notEmpty(),
+        body('avatar').isString().notEmpty(),
         body('categories_id').isString().notEmpty().custom(value => {
             return Categories.findOne({ _id: value }).then(category => {
                 if (!category) {
@@ -42,7 +42,7 @@ router.route('/courses/:courseId')
         body('weeks').isInt().optional(),
         body('tuition').isInt().optional(),
         body('discount').isInt().optional(),
-        body('avatar').isURL().optional(),
+        body('avatar').isString().optional(),
         body('categories_id').isString().optional().custom(value => {
             return Categories.findOne({ _id: value }).then(category => {
                 if (!category) {
@@ -56,14 +56,14 @@ router.route('/courses/:courseId')
 router.route('/courses/:id/lessons')
     .get(protect, authorize('teacher'), getListLessonOfCourse)
     .post(body('title').isString().notEmpty(),
-        body('thumbnail').isURL().notEmpty(),
-        body('video_url').isURL().notEmpty(),
+        body('thumbnail').isString().notEmpty(),
+        body('video_url').isString().notEmpty(),
         protect, authorize('teacher'), createLessonOfCourse)
 
 router.route('/courses/:id/lessons/:lessonId')
     .put(body('title').isString().optional(),
-        body('thumbnail').isURL().optional(),
-        body('video_url').isURL().optional(),
+        body('thumbnail').isString().optional(),
+        body('video_url').isString().optional(),
         body('course_id').isString().notEmpty().optional(),
         protect, authorize('teacher'), editListLessonOfCourse)
     .delete(protect, authorize('teacher'), deleteLessonOfCourse)
