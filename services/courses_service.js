@@ -118,3 +118,11 @@ exports.SearchCategories = async (req) => {
     return categories
 }
 
+exports.SearchCoursesChatBot = async (q) => {
+    let query;
+    query = Courses.find({ $text: { $search: `"${q}"` } }, { score: { $meta: "textScore" } }).where({ is_published: true }).sort({ score: { $meta: "textScore" } });
+    query = query.sort({ created_at: -1 });
+    query = query.populate({ path: 'lecturer_id', populate: { path: "user_id", select: "avatar name" } }).populate('categories_id');
+    results = await query;
+    return results
+}
