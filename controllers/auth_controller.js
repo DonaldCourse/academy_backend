@@ -43,8 +43,13 @@ exports.register = asyncHandler(async (req, res, next) => {
 
     await user.save({ validateBeforeSave: false });
     console.log(user.email);
-    const resetUrl = `${req.protocol}://localhost:3000/register/validate?token=${registerToken}`;
-
+    let resetUrl = ""
+    if (process.env.NODE_ENV == "production") {
+        dotenv.config({ path: './configs/prod.env' });
+        resetUrl = `${req.protocol}://103.130.218.153:3000/validate?token=${registerToken}`;
+    }else{
+        resetUrl = `${req.protocol}://localhost:3000/validate?token=${registerToken}`;
+    }
     const message = `Please make a GET request to validate your account`
 
     try {
@@ -238,8 +243,13 @@ exports.forgot = asyncHandler(async (req, res, next) => {
     user.registerPasswordToken = undefined;
     user.registerPasswordExpire = undefined;
     await user.save({ validateBeforeSave: false });
-
-    const resetUrl = `${req.protocol}://localhost:3000/resetpassword?token=${resetToken}`;
+    let resetUrl = ""
+    if (process.env.NODE_ENV == "production") {
+        dotenv.config({ path: './configs/prod.env' });
+        resetUrl = `${req.protocol}://103.130.218.153:3000/resetpassword?token=${resetToken}`;
+    }else{
+        resetUrl = `${req.protocol}://localhost:3000/resetpassword?token=${resetToken}`;
+    }
 
     const message = `Please click to link to reset password`
 

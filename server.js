@@ -17,7 +17,11 @@ const FBeamer = require("./fbeamer");
 const { Telegraf } = require('telegraf')
 
 // load env variable
-dotenv.config({ path: './configs/dev.env' });
+if (process.env.NODE_ENV == "production") {
+    dotenv.config({ path: './configs/prod.env' });
+}else{
+    dotenv.config({ path: './configs/dev.env' });
+}
 
 connectMongoDb();
 

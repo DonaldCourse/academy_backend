@@ -1,0 +1,82 @@
+[
+  {
+    "_id": "60e02457c3fbef14c20234a5",
+    "__v": 0,
+    "avatar": "https://cdn.tingtong.xyz/2021/07/15/DSCF6027-8b8873874c.JPG",
+    "createdAt": "2021-07-03T08:48:23.446Z",
+    "email": "trieu@hatto.com",
+    "name": "Nguyen Quang Trieu",
+    "password": "123123",
+    "role": "administrator"
+  },
+  {
+    "_id": "60e024e5b564251515368d18",
+    "__v": 0,
+    "avatar": "/2021/07/29/DSCF6044-8192c8b073.jpeg",
+    "createdAt": "2021-07-03T08:50:45.064Z",
+    "email": "trieu2@hatto.com",
+    "name": "Donald Trieu Dep Trai Teacher",
+    "password": "123123",
+    "role": "teacher"
+  },
+  {
+    "_id": "60e025661ff39c1570d08fb7",
+    "__v": 0,
+    "avatar": null,
+    "createdAt": "2021-07-03T08:52:54.046Z",
+    "email": "trieu4@hatto.com",
+    "name": "Nguyen Quang Trieu Student",
+    "password": "123123",
+    "role": "student"
+  },
+  {
+    "_id": "60eec5da5acbb231a2d71bd3",
+    "__v": 0,
+    "avatar": "/2021/08/17/46EE8C21-8669-4A8D-B327-C664411C2071-b8417096f1.jpeg",
+    "createdAt": "2021-07-14T11:09:14.755Z",
+    "email": "donaldtrieu@gmail.com",
+    "name": "Nguyen Quang Trieu 8888",
+    "password": "123123",
+    "role": "student"
+  },
+  {
+    "_id": "6102e0cacbbcec26eeaeab10",
+    "__v": 0,
+    "avatar": null,
+    "createdAt": "2021-07-29T17:09:30.349Z",
+    "email": "quynhth@gmail.com",
+    "name": "Trần Thị Hương Quỳnh",
+    "password": "123123",
+    "role": "teacher"
+  },
+  {
+    "_id": "6102e0decbbcec26eeaeab12",
+    "__v": 0,
+    "avatar": null,
+    "createdAt": "2021-07-29T17:09:50.768Z",
+    "email": "tinhtt@gmail.com",
+    "name": "Trần Thanh Tịnh",
+    "password": "123123",
+    "role": "teacher"
+  },
+  {
+    "_id": "6102e0f9cbbcec26eeaeab14",
+    "__v": 0,
+    "avatar": null,
+    "createdAt": "2021-07-29T17:10:17.324Z",
+    "email": "hieundq@gmail.com",
+    "name": "Nguyễn Đình Quốc Hiếu",
+    "password": "123123",
+    "role": "teacher"
+  },
+  {
+    "_id": "6102e121cbbcec26eeaeab16",
+    "__v": 0,
+    "avatar": "/2021/08/13/42572522_1520027684808061_2665577426838355968_n-48f675f75c.jpeg",
+    "createdAt": "2021-07-29T17:10:57.591Z",
+    "email": "phonglt@gmail.com",
+    "name": "Lê Trung Phong",
+    "password": "123123",
+    "role": "teacher"
+  }
+]

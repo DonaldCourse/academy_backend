@@ -1,0 +1,452 @@
+[
+  {
+    "_id": "60e0aaafb3980b1c11671c4b",
+    "__v": 0,
+    "course_id": "60e0837fb73fe5117896e03b",
+    "created_at": "2021-07-03T18:21:35.954Z",
+    "thumbnail": "https://cdn.tingtong.xyz/2021/06/26/DSCF5955-bdcb643cc8.JPG",
+    "title": "Lesson 1",
+    "updated_at": "2021-07-03T18:21:35.954Z",
+    "video_url": "https://cdn.tingtong.xyz/2021/06/26/WhatisDocker-Easyway-598df23aae.mp4"
+  },
+  {
+    "_id": "60e0aad9b3980b1c11671c4c",
+    "__v": 0,
+    "course_id": "60e0837fb73fe5117896e03b",
+    "created_at": "2021-07-03T18:22:17.591Z",
+    "thumbnail": "https://cdn.tingtong.xyz/2021/06/26/DSCF5955-bdcb643cc8.JPG",
+    "title": "Lesson 2",
+    "updated_at": "2021-07-03T18:22:17.591Z",
+    "video_url": "https://cdn.tingtong.xyz/2021/06/26/WhatisDocker-Easyway-598df23aae.mp4"
+  },
+  {
+    "_id": "60e0ab35b3980b1c11671c4d",
+    "__v": 0,
+    "course_id": "60e0837fb73fe5117896e03b",
+    "created_at": "2021-07-03T18:23:49.764Z",
+    "thumbnail": "https://cdn.tingtong.xyz/2021/06/26/DSCF5955-bdcb643cc8.JPG",
+    "title": "Lesson 3",
+    "updated_at": "2021-07-03T18:23:49.764Z",
+    "video_url": "https://cdn.tingtong.xyz/2021/06/26/WhatisDocker-Easyway-598df23aae.mp4"
+  },
+  {
+    "_id": "60e0ab56b3980b1c11671c4e",
+    "__v": 0,
+    "course_id": "60e0837fb73fe5117896e03b",
+    "created_at": "2021-07-03T18:24:22.131Z",
+    "thumbnail": "https://cdn.tingtong.xyz/2021/06/26/DSCF5955-bdcb643cc8.JPG",
+    "title": "Lesson 4",
+    "updated_at": "2021-07-03T18:24:22.131Z",
+    "video_url": "https://cdn.tingtong.xyz/2021/06/26/WhatisDocker-Easyway-598df23aae.mp4"
+  },
+  {
+    "_id": "60e410e466fd311215e27531",
+    "__v": 0,
+    "course_id": "60e4101c66fd311215e2752e",
+    "created_at": "2021-07-06T08:14:28.118Z",
+    "thumbnail": "https://cdn.tingtong.xyz/2021/06/26/DSCF5955-bdcb643cc8.JPG",
+    "title": "Lesson 1",
+    "updated_at": "2021-07-06T08:14:28.118Z",
+    "video_url": "https://cdn.tingtong.xyz/2021/06/26/WhatisDocker-Easyway-598df23aae.mp4"
+  },
+  {
+    "_id": "60e410fc66fd311215e27532",
+    "__v": 0,
+    "course_id": "60e4101c66fd311215e2752e",
+    "created_at": "2021-07-06T08:14:52.765Z",
+    "thumbnail": "https://cdn.tingtong.xyz/2021/06/26/DSCF5955-bdcb643cc8.JPG",
+    "title": "Lesson 2",
+    "updated_at": "2021-07-06T08:14:52.765Z",
+    "video_url": "https://cdn.tingtong.xyz/2021/06/26/WhatisDocker-Easyway-598df23aae.mp4"
+  },
+  {
+    "_id": "60e4111a66fd311215e27533",
+    "__v": 0,
+    "course_id": "60e4108466fd311215e2752f",
+    "created_at": "2021-07-06T08:15:22.013Z",
+    "thumbnail": "https://cdn.tingtong.xyz/2021/06/26/DSCF5955-bdcb643cc8.JPG",
+    "title": "Lesson 1",
+    "updated_at": "2021-07-06T08:15:22.013Z",
+    "video_url": "https://cdn.tingtong.xyz/2021/06/26/WhatisDocker-Easyway-598df23aae.mp4"
+  },
+  {
+    "_id": "60e4112b66fd311215e27534",
+    "__v": 0,
+    "course_id": "60e4108466fd311215e2752f",
+    "created_at": "2021-07-06T08:15:39.340Z",
+    "thumbnail": "https://cdn.tingtong.xyz/2021/06/26/DSCF5955-bdcb643cc8.JPG",
+    "title": "Lesson 2",
+    "updated_at": "2021-07-06T08:15:39.340Z",
+    "video_url": "https://cdn.tingtong.xyz/2021/06/26/WhatisDocker-Easyway-598df23aae.mp4"
+  },
+  {
+    "_id": "60e4113e66fd311215e27535",
+    "__v": 0,
+    "course_id": "60e4108466fd311215e2752f",
+    "created_at": "2021-07-06T08:15:58.059Z",
+    "thumbnail": "https://cdn.tingtong.xyz/2021/06/26/DSCF5955-bdcb643cc8.JPG",
+    "title": "Lesson 3",
+    "updated_at": "2021-07-06T08:15:58.059Z",
+    "video_url": "https://cdn.tingtong.xyz/2021/06/26/WhatisDocker-Easyway-598df23aae.mp4"
+  },
+  {
+    "_id": "60e411dd06175613b3578a87",
+    "__v": 0,
+    "course_id": "60e410c466fd311215e27530",
+    "created_at": "2021-07-06T08:18:37.977Z",
+    "thumbnail": "https://cdn.tingtong.xyz/2021/07/17/DSCF5973-e41035c6eba.JPG",
+    "title": "Lesson 1",
+    "updated_at": "2021-07-06T08:18:37.978Z",
+    "video_url": "https://cdn.tingtong.xyz/2021/06/26/WhatisDocker-Easyway-598df23aae.mp4"
+  },
+  {
+    "_id": "6115f6f7a31fd938a818e0f3",
+    "__v": 0,
+    "course_id": "6115ef6c7ec1bcabbfeaad6f",
+    "created_at": "2021-08-13T04:37:11.362Z",
+    "thumbnail": "/2021/08/13/content-marketing-eb7cadacbc.jpg",
+    "title": "1. What Is Copywriting? (And Why It's Your Secret Business & Career Building Tool)",
+    "updated_at": "2021-08-13T04:37:11.362Z",
+    "video_url": "/2021/08/13/TheCompleteCopywritingCourse-WritetoSellLikeaPro-3b75020498.mp4"
+  },
+  {
+    "_id": "6115f7a9a31fd938a818e0f4",
+    "__v": 0,
+    "course_id": "6115ef6c7ec1bcabbfeaad6f",
+    "created_at": "2021-08-13T04:40:09.827Z",
+    "thumbnail": "/2021/08/13/content-marketing-929dc5dd39.jpg",
+    "title": "2 . The Seductive Power of Words (and How To Harness Them)",
+    "updated_at": "2021-08-13T04:40:09.827Z",
+    "video_url": "/2021/08/13/TheCompleteCopywritingCourse-WritetoSellLikeaPro-db79c7e6e3.mp4"
+  },
+  {
+    "_id": "6115f7eba31fd938a818e0f5",
+    "__v": 0,
+    "course_id": "6115ef6c7ec1bcabbfeaad6f",
+    "created_at": "2021-08-13T04:41:15.340Z",
+    "thumbnail": "/2021/08/13/content-marketing-bec6c65efb.jpg",
+    "title": "3 .How To Master WIIFM (What's In It For Me)",
+    "updated_at": "2021-08-13T04:41:15.340Z",
+    "video_url": "/2021/08/13/TheCompleteCopywritingCourse-WritetoSellLikeaPro-f87679a2ae.mp4"
+  },
+  {
+    "_id": "6115f9f2a31fd938a818e0f8",
+    "__v": 0,
+    "course_id": "6115f97da31fd938a818e0f7",
+    "created_at": "2021-08-13T04:49:54.413Z",
+    "thumbnail": "/2021/08/13/digital-marketing-la-gi-tong-quan-kien-thuc-tu-a-z-ve-digital-marketing-81d97e5094.jpeg",
+    "title": "1. Course Overview",
+    "updated_at": "2021-08-13T04:49:54.413Z",
+    "video_url": "/2021/08/13/TheCompleteDigitalMarketingCourse-12Coursesin1-5d1117ba8a.mp4"
+  },
+  {
+    "_id": "6115fa0ca31fd938a818e0f9",
+    "__v": 0,
+    "course_id": "6115f97da31fd938a818e0f7",
+    "created_at": "2021-08-13T04:50:20.007Z",
+    "thumbnail": "/2021/08/13/digital-marketing-la-gi-tong-quan-kien-thuc-tu-a-z-ve-digital-marketing-d1ccd4106c9.jpeg",
+    "title": "2 . Market Research Intro",
+    "updated_at": "2021-08-13T04:50:20.007Z",
+    "video_url": "/2021/08/13/TheCompleteDigitalMarketingCourse-12Coursesin1-e7ac0bd913.mp4"
+  },
+  {
+    "_id": "6115fa71002fcde0170be176",
+    "__v": 0,
+    "course_id": "6115f97da31fd938a818e0f7",
+    "created_at": "2021-08-13T04:52:01.590Z",
+    "thumbnail": "/2021/08/13/digital-marketing-la-gi-tong-quan-kien-thuc-tu-a-z-ve-digital-marketing-1910c3766102.jpeg",
+    "title": "3 . How to Analyse Your Survey Results",
+    "updated_at": "2021-08-13T04:52:01.590Z",
+    "video_url": "/2021/08/13/TheCompleteDigitalMarketingCourse-12Coursesin1-66d1d3cdaf.mp4"
+  },
+  {
+    "_id": "611601db002fcde0170be178",
+    "__v": 0,
+    "course_id": "61160082002fcde0170be177",
+    "created_at": "2021-08-13T05:23:39.559Z",
+    "thumbnail": "/2021/08/13/tai-chinh-vs-ke-toan-chon-nganh-nao-b1c6c85b06.jpeg",
+    "title": "1. Introduction to the Course",
+    "updated_at": "2021-08-13T05:23:39.559Z",
+    "video_url": "/2021/08/13/SAPFICO(FinancialAccounting&ManagementAccounting)-7f6ccfc652.mp4"
+  },
+  {
+    "_id": "611602ec002fcde0170be17a",
+    "__v": 0,
+    "course_id": "6116028b002fcde0170be179",
+    "created_at": "2021-08-13T05:28:12.560Z",
+    "thumbnail": "/2021/08/13/34404614-business-people-accounting-report-analysis-concept-a67910ebd16.jpeg",
+    "title": "1. The Accounting Equation",
+    "updated_at": "2021-08-13T05:28:12.560Z",
+    "video_url": "/2021/08/13/Accountingin60Minutes-ABriefIntroduction-12e77c95a7.mp4"
+  },
+  {
+    "_id": "61160312002fcde0170be17b",
+    "__v": 0,
+    "course_id": "6116028b002fcde0170be179",
+    "created_at": "2021-08-13T05:28:50.772Z",
+    "thumbnail": "/2021/08/13/34404614-business-people-accounting-report-analysis-concept-559ba6dbe8.jpeg",
+    "title": "2 . Everything Balances",
+    "updated_at": "2021-08-13T05:28:50.772Z",
+    "video_url": "/2021/08/13/Accountingin60Minutes-ABriefIntroduction-ea3bced9b4.mp4"
+  },
+  {
+    "_id": "61160338002fcde0170be17c",
+    "__v": 0,
+    "course_id": "6116028b002fcde0170be179",
+    "created_at": "2021-08-13T05:29:28.197Z",
+    "thumbnail": "/2021/08/13/34404614-business-people-accounting-report-analysis-concept-19d7ce4a0e.jpeg",
+    "title": "3 . The Balance Sheet",
+    "updated_at": "2021-08-13T05:29:28.197Z",
+    "video_url": "/2021/08/13/Accountingin60Minutes-ABriefIntroduction-edea43a4a2.mp4"
+  },
+  {
+    "_id": "611609dbd477353177785612",
+    "__v": 0,
+    "course_id": "6116092dd477353177785611",
+    "created_at": "2021-08-13T05:57:47.448Z",
+    "thumbnail": "/2021/08/13/Investing-vs-Trading-1280x720-ea974108cc4.jpeg",
+    "title": "1 . The Basics and The Market",
+    "updated_at": "2021-08-13T05:57:47.448Z",
+    "video_url": "/2021/08/13/TheCompleteFoundationStockTradingCourse-6a649f3f5b.mp4"
+  },
+  {
+    "_id": "61160a22d477353177785613",
+    "__v": 0,
+    "course_id": "6116092dd477353177785611",
+    "created_at": "2021-08-13T05:58:58.345Z",
+    "thumbnail": "/2021/08/13/Investing-vs-Trading-1280x720-663bd4f64f.jpeg",
+    "title": "2 .  Orders and Prices",
+    "updated_at": "2021-08-13T05:58:58.345Z",
+    "video_url": "/2021/08/13/TheCompleteFoundationStockTradingCourse-6f3a96a3510.mp4"
+  },
+  {
+    "_id": "61160a5fd477353177785614",
+    "__v": 0,
+    "course_id": "6116092dd477353177785611",
+    "created_at": "2021-08-13T05:59:59.795Z",
+    "thumbnail": "/2021/08/13/Investing-vs-Trading-1280x720-d7e1ca3321.jpeg",
+    "title": "3. Recommended Resources",
+    "updated_at": "2021-08-13T05:59:59.795Z",
+    "video_url": "/2021/08/13/TheCompleteFoundationStockTradingCourse-86262dd63c.mp4"
+  },
+  {
+    "_id": "61160d06d477353177785617",
+    "__v": 0,
+    "course_id": "61160c97d477353177785616",
+    "created_at": "2021-08-13T06:11:18.163Z",
+    "thumbnail": "/2021/08/13/c7c7fe80d69ae769d9d654d2b9142e11-91e5d53c71.png",
+    "title": "1. Introduction To Stock Market Investing And Trading",
+    "updated_at": "2021-08-13T06:11:18.163Z",
+    "video_url": "/2021/08/13/InvestingInStocksTheCompleteCourse!(13Hour)-8101af55cbf.mp4"
+  },
+  {
+    "_id": "61160d49d477353177785618",
+    "__v": 0,
+    "course_id": "61160c97d477353177785616",
+    "created_at": "2021-08-13T06:12:25.108Z",
+    "thumbnail": "/2021/08/13/c7c7fe80d69ae769d9d654d2b9142e11-2b9facd127.png",
+    "title": "2. Key Concepts When Investing In The Stock Market",
+    "updated_at": "2021-08-13T06:12:25.108Z",
+    "video_url": "/2021/08/13/InvestingInStocksTheCompleteCourse!(13Hour)-04e50ee33b.mp4"
+  },
+  {
+    "_id": "61160dacd477353177785619",
+    "__v": 0,
+    "course_id": "61160c97d477353177785616",
+    "created_at": "2021-08-13T06:14:04.446Z",
+    "thumbnail": "/2021/08/13/c7c7fe80d69ae769d9d654d2b9142e11-454a31ebec.png",
+    "title": "3. How Are Stocks Categorized And Why That Master In Stock Investors",
+    "updated_at": "2021-08-13T06:14:04.446Z",
+    "video_url": "/2021/08/13/InvestingInStocksTheCompleteCourse!(13Hour)-66a1029aa6b.mp4"
+  },
+  {
+    "_id": "61160f68d47735317778561b",
+    "__v": 0,
+    "course_id": "61160ed1d47735317778561a",
+    "created_at": "2021-08-13T06:21:28.767Z",
+    "thumbnail": "/2021/08/13/Fundamental-1000x500-bd8c3b5108d.jpeg",
+    "title": "1. Course Introduction",
+    "updated_at": "2021-08-13T06:21:28.767Z",
+    "video_url": "/2021/08/13/IntroductiontoFinance,Accounting,ModelingandValuation-c1d558f8d2.mp4"
+  },
+  {
+    "_id": "611632be85f1696c50c56b61",
+    "__v": 0,
+    "course_id": "61160ed1d47735317778561a",
+    "created_at": "2021-08-13T08:52:14.897Z",
+    "thumbnail": "/2021/08/13/Fundamental-1000x500-fe5b1a46c4.jpeg",
+    "title": "2.  Accounting Part 1 of 3: Income Statement Analysis",
+    "updated_at": "2021-08-13T08:52:14.897Z",
+    "video_url": "/2021/08/13/Accountingin60Minutes-ABriefIntroduction-e8cc28eb1d.mp4"
+  },
+  {
+    "_id": "6116339e75789f6fcc832884",
+    "__v": 0,
+    "course_id": "6116333e75789f6fcc832883",
+    "created_at": "2021-08-13T08:55:58.089Z",
+    "thumbnail": "/2021/08/13/images-9e1964bc28.jpeg",
+    "title": "1. Introduction to Finance",
+    "updated_at": "2021-08-13T08:55:58.089Z",
+    "video_url": "/2021/08/13/FinanceforNon-Finance-LearnQuickandEasy-23d311ec47.mp4"
+  },
+  {
+    "_id": "611633bc75789f6fcc832885",
+    "__v": 0,
+    "course_id": "6116333e75789f6fcc832883",
+    "created_at": "2021-08-13T08:56:28.667Z",
+    "thumbnail": "/2021/08/13/Fundamental-1000x500-e010a8f8c64.jpeg",
+    "title": "2. Accounting and Financial Statements",
+    "updated_at": "2021-08-13T08:56:28.667Z",
+    "video_url": "/2021/08/13/FinanceforNon-Finance-LearnQuickandEasy-b5e54551dd.mp4"
+  },
+  {
+    "_id": "611633eb75789f6fcc832886",
+    "__v": 0,
+    "course_id": "6116333e75789f6fcc832883",
+    "created_at": "2021-08-13T08:57:15.776Z",
+    "thumbnail": "/2021/08/13/images-a262a608e8.jpeg",
+    "title": "3. Financial Analysis (Ratios)",
+    "updated_at": "2021-08-13T08:57:15.776Z",
+    "video_url": "/2021/08/13/FinanceforNon-Finance-LearnQuickandEasy-8106409187d.mp4"
+  },
+  {
+    "_id": "61163cd052ddd0be0936a914",
+    "__v": 0,
+    "course_id": "61163bd552ddd0be0936a913",
+    "created_at": "2021-08-13T09:35:12.971Z",
+    "thumbnail": "/2021/08/13/services-bigdata-bigdataplatform-header-2732x1536-1569213678834748331341-2ff8ef3afe.jpeg",
+    "title": "1. Learn all the buzzwords! And install the Hortonworks Data Platform Sanbox",
+    "updated_at": "2021-08-13T09:35:12.971Z",
+    "video_url": "/2021/08/13/TheUltimateHands-OnHadoop-TameyourBigData!-1fb497fa44.mp4"
+  },
+  {
+    "_id": "61163d2952ddd0be0936a915",
+    "__v": 0,
+    "course_id": "61163bd552ddd0be0936a913",
+    "created_at": "2021-08-13T09:36:41.448Z",
+    "thumbnail": "/2021/08/13/services-bigdata-bigdataplatform-header-2732x1536-1569213678834748331341-2515279444.jpeg",
+    "title": "2. Using Hadoop's Core: HDFS and MapReduce",
+    "updated_at": "2021-08-13T09:36:41.448Z",
+    "video_url": "/2021/08/13/TheUltimateHands-OnHadoop-TameyourBigData!-71f10e27d26.mp4"
+  },
+  {
+    "_id": "61163efe52ddd0be0936a917",
+    "__v": 0,
+    "course_id": "61163e3f52ddd0be0936a916",
+    "created_at": "2021-08-13T09:44:30.386Z",
+    "thumbnail": "/2021/08/13/KafkaIntroduction-4dc71018a37.png",
+    "title": "1. Kafka Introduction",
+    "updated_at": "2021-08-13T09:44:30.386Z",
+    "video_url": "/2021/08/13/ApacheKafkaSeries-LearnApacheKafkaforBeginnersv2-041cb89e94.mp4"
+  },
+  {
+    "_id": "61163f1f52ddd0be0936a918",
+    "__v": 0,
+    "course_id": "61163e3f52ddd0be0936a916",
+    "created_at": "2021-08-13T09:45:03.369Z",
+    "thumbnail": "/2021/08/13/KafkaIntroduction-c7e4b9b3af.png",
+    "title": "2. Kafka Theory",
+    "updated_at": "2021-08-13T09:45:03.369Z",
+    "video_url": "/2021/08/13/ApacheKafkaSeries-LearnApacheKafkaforBeginnersv2-9fcb2ff96e.mp4"
+  },
+  {
+    "_id": "61163f4752ddd0be0936a919",
+    "__v": 0,
+    "course_id": "61163e3f52ddd0be0936a916",
+    "created_at": "2021-08-13T09:45:43.420Z",
+    "thumbnail": "/2021/08/13/KafkaIntroduction-ec45919897.png",
+    "title": "3. CLI (Command Line Interface) 101",
+    "updated_at": "2021-08-13T09:45:43.420Z",
+    "video_url": "/2021/08/13/ApacheKafkaSeries-LearnApacheKafkaforBeginnersv2-ce26c27d36.mp4"
+  },
+  {
+    "_id": "611640ce52ddd0be0936a91b",
+    "__v": 0,
+    "course_id": "61163ff552ddd0be0936a91a",
+    "created_at": "2021-08-13T09:52:14.609Z",
+    "thumbnail": "/2021/08/13/download-4102e5015ca.png",
+    "title": "1. Welcome to the course! Here we will help you get started in the best conditions.",
+    "updated_at": "2021-08-13T09:52:14.609Z",
+    "video_url": "/2021/08/13/MachineLearningA-Z™-Hands-OnPython&RInDataScience-fa706f10ceb.mp4"
+  },
+  {
+    "_id": "6116410852ddd0be0936a91c",
+    "__v": 0,
+    "course_id": "61163ff552ddd0be0936a91a",
+    "created_at": "2021-08-13T09:53:12.262Z",
+    "thumbnail": "/2021/08/13/download-eef9d3bc4b.png",
+    "title": "2. Data Preprocessing",
+    "updated_at": "2021-08-13T09:53:12.262Z",
+    "video_url": "/2021/08/13/MachineLearningA-Z™-Hands-OnPython&RInDataScience-c3d5f9b7a0.mp4"
+  },
+  {
+    "_id": "6116415e52ddd0be0936a91d",
+    "__v": 0,
+    "course_id": "61163ff552ddd0be0936a91a",
+    "created_at": "2021-08-13T09:54:38.253Z",
+    "thumbnail": "/2021/08/13/download-d2fadd1816.png",
+    "title": "3. Simple Linear Regression",
+    "updated_at": "2021-08-13T09:54:38.253Z",
+    "video_url": "/2021/08/13/MachineLearningA-Z™-Hands-OnPython&RInDataScience-210ea104210a5.mp4"
+  },
+  {
+    "_id": "61164682037037408e303c40",
+    "__v": 0,
+    "course_id": "611645f5037037408e303c3f",
+    "created_at": "2021-08-13T10:16:34.600Z",
+    "thumbnail": "/2021/08/13/F2-389c7baa30.jpg",
+    "title": "1. Getting Started",
+    "updated_at": "2021-08-13T10:16:34.600Z",
+    "video_url": "/2021/08/13/MachineLearning,DataScienceandDeepLearningwithPython-31d1523fc1.mp4"
+  },
+  {
+    "_id": "611646cb037037408e303c41",
+    "__v": 0,
+    "course_id": "611645f5037037408e303c3f",
+    "created_at": "2021-08-13T10:17:47.025Z",
+    "thumbnail": "/2021/08/13/F2-b66539f10dc.jpg",
+    "title": "2. Statistics and Probability Refresher, and Python Practice",
+    "updated_at": "2021-08-13T10:17:47.025Z",
+    "video_url": "/2021/08/13/MachineLearning,DataScienceandDeepLearningwithPython-d93646f9e4.mp4"
+  },
+  {
+    "_id": "611646fc037037408e303c42",
+    "__v": 0,
+    "course_id": "611645f5037037408e303c3f",
+    "created_at": "2021-08-13T10:18:36.296Z",
+    "thumbnail": "/2021/08/13/F2-a3358f1fce.jpg",
+    "title": "3. Predictive Models",
+    "updated_at": "2021-08-13T10:18:36.296Z",
+    "video_url": "/2021/08/13/MachineLearning,DataScienceandDeepLearningwithPython-9630c9d55e.mp4"
+  },
+  {
+    "_id": "61164e308f1921448dd69048",
+    "__v": 0,
+    "course_id": "611649858f1921448dd69047",
+    "created_at": "2021-08-13T10:49:20.537Z",
+    "thumbnail": "/2021/08/13/Machine-Learning-664bb22a65.jpeg",
+    "title": "1. Welcome to the course",
+    "updated_at": "2021-08-13T10:49:20.537Z",
+    "video_url": "/2021/08/13/DeepLearningA-Z™-Hands-OnArtificialNeuralNetworks-b64b11a6cb.mp4"
+  },
+  {
+    "_id": "611651ce8f1921448dd6904a",
+    "__v": 0,
+    "course_id": "61164fb48f1921448dd69049",
+    "created_at": "2021-08-13T11:04:46.351Z",
+    "thumbnail": "/2021/08/13/nodejs-2ed5cfd31a.png",
+    "title": "1. Installing and Exploring Node.js",
+    "updated_at": "2021-08-13T11:04:46.351Z",
+    "video_url": "/2021/08/13/TheCompleteNode-f4f92799e4.mp4"
+  },
+  {
+    "_id": "611691e68f1921448dd6904c",
+    "__v": 0,
+    "course_id": "61168e688f1921448dd6904b",
+    "created_at": "2021-08-13T15:38:14.443Z",
+    "thumbnail": "/2021/08/13/react-6d83fc16b1.png",
+    "title": "Getting Started",
+    "updated_at": "2021-08-13T15:38:14.443Z",
+    "video_url": "/2021/08/13/React-TheCompleteGuide(inclHooks,ReactRouter,Redux)-dc8a833f3f.mp4"
+  }
+]

@@ -1,0 +1,58 @@
+[
+  {
+    "_id": "60eeaf21390ad028a55b572a",
+    "__v": 0,
+    "course_id": "60e0837fb73fe5117896e03b",
+    "created_at": "2021-07-14T09:32:17.285Z",
+    "student_id": "60e025661ff39c1570d08fb8",
+    "updated_at": "2021-07-14T09:32:17.285Z"
+  },
+  {
+    "_id": "60eeb08f390ad028a55b572b",
+    "__v": 0,
+    "course_id": "60e4108466fd311215e2752f",
+    "created_at": "2021-07-14T09:38:23.187Z",
+    "student_id": "60e025661ff39c1570d08fb8",
+    "updated_at": "2021-07-14T09:38:23.187Z"
+  },
+  {
+    "_id": "60ef36aa2c927f55d5880227",
+    "__v": 0,
+    "course_id": "60e0837fb73fe5117896e03b",
+    "created_at": "2021-07-14T19:10:34.443Z",
+    "student_id": "60eec5da5acbb231a2d71bd4",
+    "updated_at": "2021-07-14T19:10:34.443Z"
+  },
+  {
+    "_id": "60f03fce344dbe21e484f385",
+    "__v": 0,
+    "course_id": "60e410c466fd311215e27530",
+    "created_at": "2021-07-15T14:01:50.549Z",
+    "student_id": "60eec5da5acbb231a2d71bd4",
+    "updated_at": "2021-07-15T14:01:50.549Z"
+  },
+  {
+    "_id": "60f855265c3c9c2de93b9230",
+    "__v": 0,
+    "course_id": "60e4101c66fd311215e2752e",
+    "created_at": "2021-07-21T17:11:02.524Z",
+    "student_id": "60eec5da5acbb231a2d71bd4",
+    "updated_at": "2021-07-21T17:11:02.524Z"
+  },
+  {
+    "_id": "611b572a540668d9dc1c65b7",
+    "__v": 0,
+    "course_id": "61168e688f1921448dd6904b",
+    "created_at": "2021-08-17T06:28:58.117Z",
+    "student_id": "60eec5da5acbb231a2d71bd4",
+    "updated_at": "2021-08-17T06:28:58.117Z"
+  },
+  {
+    "_id": "611b57af2a3e140b0c77a686",
+    "__v": 0,
+    "course_id": "61164fb48f1921448dd69049",
+    "created_at": "2021-08-17T06:31:11.542Z",
+    "student_id": "60eec5da5acbb231a2d71bd4",
+    "updated_at": "2021-08-17T06:31:11.542Z"
+  }
+]

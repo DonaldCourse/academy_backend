@@ -1,0 +1,20 @@
+[
+  {
+    "_id": "60e025661ff39c1570d08fb8",
+    "__v": 0,
+    "created_at": "2021-07-03T08:52:54.346Z",
+    "email": "trieu4@hatto.com",
+    "name": "Nguyen Quang Trieu Student",
+    "updated_at": "2021-07-03T08:52:54.346Z",
+    "user_id": "60e025661ff39c1570d08fb7"
+  },
+  {
+    "_id": "60eec5da5acbb231a2d71bd4",
+    "__v": 0,
+    "created_at": "2021-07-14T11:09:14.878Z",
+    "email": "donaldtrieu@gmail.com",
+    "name": "Nguyen Quang Trieu 8888",
+    "updated_at": "2021-07-14T11:09:14.878Z",
+    "user_id": "60eec5da5acbb231a2d71bd3"
+  }
+]

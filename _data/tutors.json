@@ -1,0 +1,67 @@
+[
+  {
+    "_id": "60e024e5b564251515368d19",
+    "__v": 0,
+    "created_at": "2021-07-03T08:50:45.247Z",
+    "education": "HCMUS",
+    "email": "trieu2@hatto.com",
+    "name": "Donald Trieu Dep Trai Teacher",
+    "updated_at": "2021-07-03T08:50:45.247Z",
+    "user_id": "60e024e5b564251515368d18",
+    "intro_video": "unset",
+    "introduction": "unset",
+    "professional_background": "unset"
+  },
+  {
+    "_id": "6102e0cacbbcec26eeaeab11",
+    "__v": 0,
+    "created_at": "2021-07-29T17:09:30.600Z",
+    "education": "",
+    "email": "quynhth@gmail.com",
+    "name": "Trần Thị Hương Quỳnh",
+    "updated_at": "2021-07-29T17:09:30.600Z",
+    "user_id": "6102e0cacbbcec26eeaeab10",
+    "intro_video": "",
+    "introduction": "",
+    "professional_background": ""
+  },
+  {
+    "_id": "6102e0decbbcec26eeaeab13",
+    "__v": 0,
+    "created_at": "2021-07-29T17:09:50.945Z",
+    "education": "",
+    "email": "tinhtt@gmail.com",
+    "name": "Trần Thanh Tịnh",
+    "updated_at": "2021-07-29T17:09:50.945Z",
+    "user_id": "6102e0decbbcec26eeaeab12",
+    "intro_video": "",
+    "introduction": "",
+    "professional_background": ""
+  },
+  {
+    "_id": "6102e0f9cbbcec26eeaeab15",
+    "__v": 0,
+    "created_at": "2021-07-29T17:10:17.484Z",
+    "education": "",
+    "email": "hieundq@gmail.com",
+    "name": "Nguyễn Đình Quốc Hiếu",
+    "updated_at": "2021-07-29T17:10:17.484Z",
+    "user_id": "6102e0f9cbbcec26eeaeab14",
+    "intro_video": "",
+    "introduction": "",
+    "professional_background": ""
+  },
+  {
+    "_id": "6102e121cbbcec26eeaeab17",
+    "__v": 0,
+    "created_at": "2021-07-29T17:10:57.705Z",
+    "education": "",
+    "email": "phonglt@gmail.com",
+    "name": "Lê Trung Phong",
+    "updated_at": "2021-07-29T17:10:57.705Z",
+    "user_id": "6102e121cbbcec26eeaeab16",
+    "intro_video": "",
+    "introduction": "",
+    "professional_background": ""
+  }
+]

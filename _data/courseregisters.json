@@ -1,0 +1,82 @@
+[
+  {
+    "_id": "60eb3332c841d31f16357fc9",
+    "__v": 0,
+    "course_id": "60e410c466fd311215e27530",
+    "created_at": "2021-07-11T18:06:42.411Z",
+    "student_id": "60e025661ff39c1570d08fb8",
+    "updated_at": "2021-07-11T18:06:42.411Z"
+  },
+  {
+    "_id": "60eb34abff51cf1fb626c953",
+    "__v": 0,
+    "course_id": "60e0837fb73fe5117896e03b",
+    "created_at": "2021-07-11T18:12:59.391Z",
+    "student_id": "60e025661ff39c1570d08fb8",
+    "updated_at": "2021-07-11T18:12:59.391Z"
+  },
+  {
+    "_id": "60eb357dfd928e201c3ff8d4",
+    "__v": 0,
+    "course_id": "60e4108466fd311215e2752f",
+    "created_at": "2021-07-11T18:16:29.546Z",
+    "student_id": "60e025661ff39c1570d08fb8",
+    "updated_at": "2021-07-11T18:16:29.546Z"
+  },
+  {
+    "_id": "60eb360338c18b20dccc6ce4",
+    "__v": 0,
+    "course_id": "60e4101c66fd311215e2752e",
+    "created_at": "2021-07-11T18:18:43.831Z",
+    "student_id": "60e025661ff39c1570d08fb8",
+    "updated_at": "2021-07-11T18:18:43.831Z"
+  },
+  {
+    "_id": "60ef3480e57ffb48ca8f369c",
+    "__v": 0,
+    "course_id": "60e410c466fd311215e27530",
+    "created_at": "2021-07-14T19:01:20.663Z",
+    "student_id": "60eec5da5acbb231a2d71bd4",
+    "updated_at": "2021-07-14T19:01:20.663Z"
+  },
+  {
+    "_id": "60ef3488e57ffb48ca8f369d",
+    "__v": 0,
+    "course_id": "60e4101c66fd311215e2752e",
+    "created_at": "2021-07-14T19:01:28.949Z",
+    "student_id": "60eec5da5acbb231a2d71bd4",
+    "updated_at": "2021-07-14T19:01:28.949Z"
+  },
+  {
+    "_id": "60f2a09de712b91b9dc6b535",
+    "__v": 0,
+    "course_id": "60e4108466fd311215e2752f",
+    "created_at": "2021-07-17T09:19:25.131Z",
+    "student_id": "60eec5da5acbb231a2d71bd4",
+    "updated_at": "2021-07-17T09:19:25.131Z"
+  },
+  {
+    "_id": "6116346952ddd0be0936a911",
+    "__v": 0,
+    "course_id": "6116333e75789f6fcc832883",
+    "created_at": "2021-08-13T08:59:21.666Z",
+    "student_id": "60eec5da5acbb231a2d71bd4",
+    "updated_at": "2021-08-13T08:59:21.666Z"
+  },
+  {
+    "_id": "6116953a8b857749ebd0bc98",
+    "__v": 0,
+    "course_id": "61168e688f1921448dd6904b",
+    "created_at": "2021-08-13T15:52:26.834Z",
+    "student_id": "60eec5da5acbb231a2d71bd4",
+    "updated_at": "2021-08-13T15:52:26.834Z"
+  },
+  {
+    "_id": "611ba16ca65465d67d34a3e5",
+    "__v": 0,
+    "course_id": "61160c97d477353177785616",
+    "created_at": "2021-08-17T11:45:48.111Z",
+    "student_id": "60eec5da5acbb231a2d71bd4",
+    "updated_at": "2021-08-17T11:45:48.111Z"
+  }
+]
