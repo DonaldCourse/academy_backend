@@ -19,7 +19,7 @@ const { Telegraf } = require('telegraf')
 // load env variable
 if (process.env.NODE_ENV == "production") {
     dotenv.config({ path: './configs/prod.env' });
-}else{
+} else {
     dotenv.config({ path: './configs/dev.env' });
 }
 
@@ -131,9 +131,41 @@ bot.action("categories", async (ctx) => {
 });
 
 bot.action("keyword", async (ctx) => {
-    let animalMessage = `Để tìm kiếm khoá học vui lòng nhập theo cú pháp /search-keyword`;
-    ctx.deleteMessage();
-    bot.telegram.sendMessage(ctx.chat.id, animalMessage)
+    const result = [
+        {
+            name: "web"
+        },
+        {
+            name: "reactjs"
+        },
+        {
+            name: "mobile"
+        },
+        {
+            name: "bigdata"
+        },
+        {
+            name: "machine learning"
+        },
+        {
+            name: "nodejs"
+        },
+        {
+            name: "facebook"
+        },
+    ]
+    const buttons = result.map((item, index) => {
+        console.log(item.name);
+        return {
+            text: item.name,
+            callback_data: "search-" + item.name
+        }
+    });
+    bot.telegram.sendMessage(ctx.chat.id, "Từ khoá phổ biến", {
+        reply_markup: {
+            inline_keyboard: [buttons]
+        }
+    })
 });
 
 bot.action(/categoryID+/, async (ctx) => {
@@ -174,14 +206,8 @@ bot.action(/categoryID+/, async (ctx) => {
     }
 });
 
-bot.action(/courseID+/, (ctx) => {
-    let course_id = ctx.match.input.substring(9);
-
-});
-
-bot.command('/search', async (ctx) => {
+bot.action(/search+/, async (ctx) => {
     try {
-        console.log(ctx.match)
         let query = ctx.match.input.substring(7);
         console.log(query);
         const result = await SearchCoursesChatBot(query);

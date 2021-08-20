@@ -42,16 +42,14 @@ exports.register = asyncHandler(async (req, res, next) => {
     const registerToken = user.registerTokenMethod();
 
     await user.save({ validateBeforeSave: false });
-    console.log(user.email);
     let resetUrl = ""
     if (process.env.NODE_ENV == "production") {
-        dotenv.config({ path: './configs/prod.env' });
-        resetUrl = `${req.protocol}://103.130.218.153:3000/validate?token=${registerToken}`;
+        resetUrl = `${req.protocol}://103.130.218.153:3000/register/validate?token=${registerToken}`;
     }else{
-        resetUrl = `${req.protocol}://localhost:3000/validate?token=${registerToken}`;
+        resetUrl = `${req.protocol}://localhost:3000/register/validate?token=${registerToken}`;
     }
     const message = `Please make a GET request to validate your account`
-
+    console.log(resetUrl);
     try {
         await sendEmail({
             email: user.email,
@@ -65,6 +63,7 @@ exports.register = asyncHandler(async (req, res, next) => {
             message: `Email sent to a email address ${user.email}`
         });
     } catch (error) {
+        console.log(error);
         user.registerPasswordToken = undefined;
         user.registerPasswordExpire = undefined;
 
@@ -245,13 +244,13 @@ exports.forgot = asyncHandler(async (req, res, next) => {
     await user.save({ validateBeforeSave: false });
     let resetUrl = ""
     if (process.env.NODE_ENV == "production") {
-        dotenv.config({ path: './configs/prod.env' });
         resetUrl = `${req.protocol}://103.130.218.153:3000/resetpassword?token=${resetToken}`;
     }else{
         resetUrl = `${req.protocol}://localhost:3000/resetpassword?token=${resetToken}`;
     }
 
     const message = `Please click to link to reset password`
+    console.log(resetUrl);
 
     try {
         await sendEmail({
