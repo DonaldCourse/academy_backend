@@ -5,10 +5,10 @@ const connectDBMongo = async () => {
     try {
         const connect = await mongoose.connect(process.env.MONGODB_URL, {
             auth: {
-                user:'root',
-                password:'123123'
+                user:'',
+                password:''
             },
-            authSource:"admin",
+            authSource:"",
             useNewUrlParser: true,
             useCreateIndex: true,
             useFindAndModify: false,
